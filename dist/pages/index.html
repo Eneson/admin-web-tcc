@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en"> <!--begin::Head-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>AdminLTE v4 | Dashboard</title><!--begin::Primary Meta Tags-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="AdminLTE v4 | Dashboard"><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous"><!--end::Fonts--><!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css" integrity="sha256-dSokZseQNT08wYEWiz5iLI8QPlKxG+TswNRD8k35cpg=" crossorigin="anonymous"><!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Third Party Plugin(Bootstrap Icons)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css"><!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
+    <link rel="stylesheet" href="../../dist/css/adminlte.css"><!--end::Required Plugin(AdminLTE)--><!-- apexcharts -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css" integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous"><!-- jsvectormap -->
+    </head> <!--end::Head--> <!--begin::Body-->
+
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
+    <div class="app-wrapper"> <!--begin::Header-->
+        <nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
+            <div class="container-fluid"> <!--begin::Start Navbar Links-->
+                <ul class="navbar-nav">
+                    <li class="nav-item"> <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button"> <i class="bi bi-list"></i> </a> </li>
+                    <li class="nav-item d-none d-md-block"> <a href="#" class="nav-link">Inicio</a> </li>
+                    <li class="nav-item d-none d-md-block"> <a href="#" class="nav-link">Contact</a> </li>
+                </ul> <!--end::Start Navbar Links--> <!--begin::End Navbar Links-->
+                <ul class="navbar-nav ms-auto"> <!--begin::Navbar Search-->
+                    <li class="nav-item dropdown user-menu"> <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <img src="../../dist/assets/img/user2-160x160.jpg" class="user-image rounded-circle shadow" alt="User Image"> <span class="d-none d-md-inline">Alexander Pierce</span> </a>
+                        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <!--begin::User Image-->
+                            <li class="user-header text-bg-primary"> <img src="../../dist/assets/img/user2-160x160.jpg" class="rounded-circle shadow" alt="User Image">
+                                <p>
+                                    Alexander Pierce - Web Developer
+                                    <small>Member since Nov. 2023</small>
+                                </p>
+                            </li> <!--end::User Image--> <!--begin::Menu Body-->
+                            
+                            <li class="user-footer"> <a href="#" class="btn btn-default btn-flat">Meu Perfil</a> <a href="#" class="btn btn-default btn-flat float-end">Sair</a> </li> <!--end::Menu Footer-->
+                        </ul>
+                    </li> <!--end::User Menu Dropdown-->
+                </ul> <!--end::End Navbar Links-->
+            </div> <!--end::Container-->
+        </nav> <!--end::Header--> <!--begin::Sidebar-->
+        <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark"> <!--begin::Sidebar Brand-->
+            <div class="sidebar-brand"> <!--begin::Brand Link--> <a href="./index.html" class="brand-link"> <!--begin::Brand Image--> <img src="../../dist/assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image opacity-75 shadow"> <!--end::Brand Image--> <!--begin::Brand Text--> <span class="brand-text fw-light">AdminLTE 4</span> <!--end::Brand Text--> </a> <!--end::Brand Link--> </div> <!--end::Sidebar Brand--> <!--begin::Sidebar Wrapper-->
+            <div class="sidebar-wrapper">
+                <nav class="mt-2"> <!--begin::Sidebar Menu-->
+                    <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item menu-open"> <a href="#" class="nav-link active"> <i class="nav-icon bi bi-speedometer"></i>
+                                <p>
+                                    Dashboard
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item"> <a href="./index.html" class="nav-link active"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Dashboard v1</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="./index2.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Dashboard v2</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="./index3.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Dashboard v3</p>
+                                    </a> </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-box-seam-fill"></i>
+                                <p>
+                                    Widgets
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item"> <a href="./widgets/small-box.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Small Box</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="./widgets/info-box.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>info Box</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Cards</p>
+                                    </a> </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-clipboard-fill"></i>
+                                <p>
+                                    Layout Options
+                                    <span class="nav-badge badge text-bg-secondary me-3">6</span> <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item"> <a href="./layout/unfixed-sidebar.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Default Sidebar</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="./layout/fixed-sidebar.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Fixed Sidebar</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="./layout/layout-custom-area.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Layout <small>+ Custom Area </small></p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="./layout/sidebar-mini.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Sidebar Mini</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="./layout/collapsed-sidebar.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Sidebar Mini <small>+ Collapsed</small></p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="./layout/logo-switch.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Sidebar Mini <small>+ Logo Switch</small></p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="./layout/layout-rtl.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Layout RTL</p>
+                                    </a> </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-tree-fill"></i>
+                                <p>
+                                    UI Elements
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item"> <a href="./UI/general.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>General</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="./UI/icons.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Icons</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="./UI/timeline.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Timeline</p>
+                                    </a> </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-pencil-square"></i>
+                                <p>
+                                    Forms
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item"> <a href="./forms/general.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>General Elements</p>
+                                    </a> </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-table"></i>
+                                <p>
+                                    Tables
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item"> <a href="./tables/simple.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Simple Tables</p>
+                                    </a> </li>
+                            </ul>
+                        </li>
+                        <li class="nav-header">EXAMPLES</li>
+                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-box-arrow-in-right"></i>
+                                <p>
+                                    Auth
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-box-arrow-in-right"></i>
+                                        <p>
+                                            Version 1
+                                            <i class="nav-arrow bi bi-chevron-right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item"> <a href="./examples/login.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                                <p>Login</p>
+                                            </a> </li>
+                                        <li class="nav-item"> <a href="./examples/register.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                                <p>Register</p>
+                                            </a> </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-box-arrow-in-right"></i>
+                                        <p>
+                                            Version 2
+                                            <i class="nav-arrow bi bi-chevron-right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item"> <a href="./examples/login-v2.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                                <p>Login</p>
+                                            </a> </li>
+                                        <li class="nav-item"> <a href="./examples/register-v2.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                                <p>Register</p>
+                                            </a> </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"> <a href="./examples/lockscreen.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                        <p>Lockscreen</p>
+                                    </a> </li>
+                            </ul>
+                        </li>
+                        
+                    </ul> <!--end::Sidebar Menu-->
+                </nav>
+            </div> <!--end::Sidebar Wrapper-->
+        </aside> <!--end::Sidebar--> <!--begin::App Main-->
+        <main class="app-main"> <!--begin::App Content Header-->
+            <div class="app-content-header"> <!--begin::Container-->
+                <div class="container-fluid"> <!--begin::Row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3 class="mb-0">Dashboard</h3>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-end">
+                                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Dashboard
+                                </li>
+                            </ol>
+                        </div>
+                    </div> <!--end::Row-->
+                </div> <!--end::Container-->
+            </div> <!--end::App Content Header--> <!--begin::App Content-->
+            <div class="app-content"> <!--begin::Container-->
+                    <div class="container-fluid"> <!--begin::Row-->
+                        <div class="row"> <!--begin::Col-->
+                            <div class="col-lg-4 col-6"> <!--begin::Usuários Box-->
+                                <div class="small-box text-bg-primary">
+                                    <div class="inner">
+                                        <h3 id="count_users">0</h3>
+                                        <p>Usuários</p>
+                                    </div> <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"></path>
+                                    </svg> <a href="#" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
+                                        Mais informações <i class="bi bi-link-45deg"></i> </a>
+                                </div> <!--end::Usuários Box-->
+                            </div> <!--end::Col-->
+                            <div class="col-lg-4 col-6"> <!--begin::Pets cadastrados Box-->
+                                <div class="small-box text-bg-success">
+                                    <div class="inner">
+                                        <h3>53</h3>
+                                        <p>Pets cadastrados</p>
+                                    </div> <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"></path>
+                                    </svg> <a href="#" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
+                                        Mais informações <i class="bi bi-link-45deg"></i> </a>
+                                </div> <!--end::Pets cadastrados Box-->
+                            </div> <!--end::Col-->                        
+                            <div class="col-lg-4 col-6"> <!--begin::Denúncias Box -->
+                                <div class="small-box text-bg-danger">
+                                    <div class="inner">
+                                        <h3>65</h3>
+                                        <p>Denúncias</p>
+                                    </div> <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z"></path>
+                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z"></path>
+                                    </svg> <a href="#" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
+                                        Mais informações <i class="bi bi-link-45deg"></i> </a>
+                                </div> <!--end::Denúncias Box-->
+                            </div> <!--end::Col-->
+                        </div> <!--end::Row--> <!--begin::Row-->
+                        <div class="row"> <!-- Start col -->
+                            <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Usuário</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="card-primary"> <!--begin::Header-->
+                                            
+                                            <form id="Form_edit_user"> <!--begin::Body-->
+                                                <div class="card-body">
+                                                    <input style="display: none;" type="text" id="id_user"/>                                               
+                                                    <div class="mb-3"> <label for="InputName" class="form-label">Nome</label> <input type="text" class="form-control" id="InputName"></div>
+                                                    <div class="mb-3"> <label for="InputEmail" class="form-label">Email address</label> <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp"></div>
+                                                    <div class="mb-3"><label for="inputFone" class="form-label">Telefone</label><input type="text" class="form-control" id="InputFone" placeholder="Telefone"></div>
+                                                </div> <!--end::Body--> <!--begin::Footer-->
+                                                 <!--end::Footer-->
+                                                 <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                    <input type="submit" value="Confirmar" class="btn btn-primary"/>
+                                                  </div>
+                                            </form> <!--end::Form-->
+                                        </div>
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+                            </div>
+                            <!-- MODAL NOVO USUÁRIO -->
+                            <div class="modal fade " id="novoUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="novoUsuario">Novo Usuário</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="card-primary"> <!--begin::Header-->                                            
+                                            <form id="Form_new_user"> <!--begin::Body-->
+                                                <div class="card-body">                                             
+                                                    <div class="mb-3"> <label for="NewInputName" class="form-label">Nome</label> <input placeholder="Nome Completo" type="text" class="form-control" id="NewInputName"></div>
+                                                    <div class="mb-3"> <label for="NewInputEmail" class="form-label">Email</label> <input placeholder="Email@mail.com" type="email" class="form-control" id="NewInputEmail" aria-describedby="emailHelp"></div>
+                                                    <div class="mb-3"><label for="NewInputFone" class="form-label">Telefone</label><input type="text" class="form-control" id="NewInputFone" placeholder="Telefone"></div>
+                                                    <div class="mb-3"><label for="NewInputSenha" class="form-label">Senha</label><input type="password" class="form-control" id="NewInputSenha" placeholder="Senha"></div>
+                                                
+                                                </div> <!--end::Body--> <!--begin::Footer-->
+                                                 <!--end::Footer-->
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                    <input type="submit" value="Confirmar" class="btn btn-primary"/>
+                                                </div>
+                                            </form> <!--end::Form-->
+                                        </div>
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+                            </div>
+                            <!-- CARD USUÁRIOS -->
+                            <div class="col-lg-12">   
+                                <div class="card">
+                                    <div class="card-header border-0">
+                                        <h3 class="card-title">Usuários cadastrados</h3>
+                                    </div>   
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive" style="max-height: 400px; min-height: 200px; overflow-y: scroll;"> 
+                                            <table class="table m-0">
+                                               <thead>                                                   
+                                                   <tr>
+                                                       <th>ID</th>
+                                                       <th>Usuário</th>
+                                                       <th>Telefone</th>
+                                                       <th>Email</th>
+                                                       <th>Ações</th>
+                                                   </tr>
+                                               </thead>
+                                               <tbody id="user_list"> 
+                                               </tbody>
+                                           </table>
+                                       </div>
+                                    </div>                       
+                                    <div class="card-footer clearfix"> 
+                                        <a data-bs-toggle='modal' id='NovoUsuarioButton' data-bs-target='#novoUsuario'  href="#" class="btn btn-sm btn-primary float-start">
+                                            Adicionar Novo Usuário
+                                        </a> 
+                                    </div>
+                                </div>                                
+                            </div> <!-- /.card -->
+                        </div>  
+                        
+                        <!-- SEÇÃO DE PETS -->
+                        <div class="row" style="margin-top: 10px;"> <!-- Start col -->                            
+                            <!-- MODAL NOVO PET -->
+                            <div class="modal fade " id="novoPet" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">
+                                    
+                                        <div class="card-primary"> <!--begin::Header-->                                            
+                                            <form id="Form_new_pet"> <!--begin::Body-->
+                                                <div class="card-body">                                             
+                                                    <div class="card card-info card-outline mb-4"> <!--begin::Header-->
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="novoPet">Novo Pet</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                          </div> <!--end::Header--> <!--begin::Form-->
+                                                        <form class="needs-validation" novalidate=""> <!--begin::Body-->
+                                                            <div class="card-body"> <!--begin::Row-->
+                                                                <div class="row g-3"> <!--begin::Col-->
+                                                                    <div class="col-md-6">
+                                                                        <label for="validationCustom01" class="form-label">Nome do pet</label>
+                                                                        <input type="text" class="form-control" id="New_Pet_Name" required="">
+                                                                    
+                                                                    </div> <!--end::Col--> <!--begin::Col-->
+                                                                    <div class="col-md-6">
+                                                                        <label for="validationCustom04" class="form-label">Selecionar Dono</label>
+                                                                        <select class="form-select" id="New_Dono_Select" required="">
+                                                                            <option selected="" disabled="" value="">Selecione...</option>
+                                                                        </select>                                                                        
+                                                                    </div> <!--end::Col--> <!--begin::Col-->
+                                                                    <div class="col-md-6">  
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <fieldset>                                                                             
+                                                                                    <legend class="col-form-label pt-0">SEXO</legend>
+                                                                                        <div class="form-check">
+                                                                                            <input class="form-check-input" type="radio" name="New_Sexo" id="New_Macho" value="Macho" checked="">
+                                                                                            <label class="form-check-label" for="New_Macho">
+                                                                                                Macho
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <div class="form-check">
+                                                                                            <input class="form-check-input" type="radio" name="New_Sexo" id="New_Femea" value="Fêmea">
+                                                                                            <label class="form-check-label" for="New_Femea">
+                                                                                                Fêmea
+                                                                                            </label>
+                                                                                        </div>
+                                                                                </fieldset>      
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <fieldset>                                                                             
+                                                                                    <legend class="col-form-label pt-0"> </legend>
+                                                                                        <div class="form-check">
+                                                                                            <input class="form-check-input" type="radio" name="New_Tipo" id="New_Cao" value="Cão" checked="">
+                                                                                            <label class="form-check-label" for="New_Cao">
+                                                                                                Cão
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <div class="form-check">
+                                                                                            <input class="form-check-input" type="radio" name="New_Tipo" id="New_Gato" value="Gato">
+                                                                                            <label class="form-check-label" for="New_Gato">
+                                                                                                Gato
+                                                                                            </label>
+                                                                                        </div>
+                                                                                </fieldset>  
+                                                                            </div>
+                                                                        </div>                                                                      
+                                                                        
+                                                                                                                                                                                                          
+                                                                    </div> <!--end::Col--> <!--begin::Col-->
+                                                                    <div class="col-md-6">
+                                                                        <label for="validationCustom03" class="form-label">Data de Nascimento</label>
+                                                                        <input type="date" class="form-control" id="New_Data_nasc" required="">                                                                        
+                                                                    </div> <!--end::Col--> <!--begin::Col-->
+                                                                    
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-check form-switch">
+                                                                            <input class="form-check-input" type="checkbox" role="switch" id="New_Vacinado">
+                                                                            <label class="form-check-label" for="New_Vacinado">Vacinado</label>
+                                                                          </div>                                                                       
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-check form-switch">
+                                                                            <input class="form-check-input" type="checkbox" role="switch" id="New_Vermifugado">
+                                                                            <label class="form-check-label" for="New_Vermifugado">Vermifugado</label>
+                                                                          </div>                                                                       
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-check form-switch">
+                                                                            <input class="form-check-input" type="checkbox" role="switch" id="New_Castrado">
+                                                                            <label class="form-check-label" for="New_Castrado">Castrado</label>
+                                                                          </div>                                                                       
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="mb-3">
+                                                                            <label for="New_FotoFile" class="form-label">Selecionar Foto</label>
+                                                                            <input class="form-control" type="file" id="New_FotoFile">
+                                                                          </div>
+                                                                    </div> <!--end::Col-->
+                                                                    <div class="col-12">
+                                                                        <div class="form-floating">
+                                                                            <textarea class="form-control" placeholder="Leave a comment here" id="New_Desc" style="height: 100px"></textarea>
+                                                                            <label for="New_Desc">Descrição</label>
+                                                                          </div>
+                                                                    </div> <!--end::Col-->
+                                                                </div> <!--end::Row-->
+                                                            </div> <!--end::Body--> <!--begin::Footer-->
+                                                            <div class="card-footer">
+                                                                <button style="margin-left: 10px;" type="button" class="float-end btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                                <input type="submit" value="Confirmar" class="float-end btn btn-primary"/>                                                                
+                                                            </div> <!--end::Footer-->
+                                                        </form> <!--end::Form--> <!--begin::JavaScript-->
+                                                        
+                                                    </div>
+                                                </div> <!--end::Body--> <!--begin::Footer-->
+                                                 <!--end::Footer-->
+                                                
+                                            </form> <!--end::Form-->
+                                        </div>
+                                    
+                                  </div>
+                                </div>
+                            </div>
+                            <!-- MODAL VISUALIZAR PET -->
+                            <div class="modal fade " id="viewPet" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">                                    
+                                        <div class="card-primary"> <!--begin::Header-->                                            
+                                            <form id="Form_new_pet"> <!--begin::Body-->
+                                                <div class="card-body">                                             
+                                                    <div class="card card-outline"> <!--begin::Header-->
+                                                        <div class="modal-header">
+                                                            <div style="width: 100%; display: flex; justify-content: space-between;">
+                                                                <h1 id="petIdModal" class="modal-title fs-5">Id do pet</h1>
+                                                                <h1 id="petNomeModal" class="modal-title fs-5">Nome do pet</h1>
+                                                                <h1 id="petTipoModal" style="margin-right: 20px;" class="modal-title fs-5">Tipo do pet</h1>
+                                                            </div>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                          </div> <!--end::Header--> <!--begin::Form-->
+                                                        <form class="needs-validation" novalidate="">
+                                                                <div class="card" style="border-radius: 0px;">
+                                                                    <div class="row" style="align-self: center; margin-top: 10px;">
+                                                                        <div class="col-12" style="display: flex;">
+                                                                            <h1 style="margin-right: 5px;" class="modal-title fs-5">Dono:</h1>        
+                                                                            <h1 id="petDonoModal" class="modal-title fs-5">Nome do Dono</h1>                                                                      
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div style="text-align: center;margin-top: 20px;margin-bottom: 20px;">
+                                                                            <img style="max-width: 250px; width: auto; height: auto;" height="300" id="petImgModal" src="..." class="card-img-top" alt="...">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <div class="card-body">
+                                                                                <div class="row">
+                                                                                    <div style="justify-content: space-between; display: flex;" class="col-12">
+                                                                                        <div style="display: flex;" >
+                                                                                            <h5 style="margin-right: 5px;" class="card-title">Data de Nascimento:</h5><br>
+                                                                                            <p id="petNascModal" class="card-text">17/09/2024</p>
+                                                                                        </div>
+                                                                                        <div style="margin-right: 30px;">
+                                                                                            <p id="petSexoModal" class="card-text">Macho</p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div style="margin-top: 20px;" class="row">
+                                                                                    <div style="justify-content: space-between; display: flex;" class="col-12">
+                                                                                        <div>
+                                                                                            <h5 style="text-align: center;" class="card-title">Vacinado</h5><br>
+                                                                                            <p id="petVacinadoModal" style="text-align: center;" class="card-text">SIM</p>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            <h5 style="text-align: center;" class="card-title">Castrado</h5><br>
+                                                                                            <p id="petCastradoModal" style="text-align: center;" class="card-text">NÃO</p>
+                                                                                        </div>
+                                                                                        <div >
+                                                                                            <h5 style="text-align: center;" class="card-title">Vermifugado</h5><br>
+                                                                                            <p id="petVermifugadoModal" style="text-align: center;" class="card-text">SIM</p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>                                                                                
+                                                                                <div style="border-top: solid 1px #898b8d;margin-top: 20px;" class="row">
+                                                                                    <div class="col-12">
+                                                                                        <div style="margin-top: 5px;">
+                                                                                            <h5 class="card-title">Mais informações</h5><br>
+                                                                                            <p id="petDescModal" style="text-align: justify;" class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos corporis labore animi exercitationem repellendus dolorum aut quo nemo eum provident dolore pariatur iure, ipsa accusamus enim error unde veritatis? Labore?</p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                              </div>
+                                                                        </div>
+                                                                    </div>
+                                                                        
+                                                                </div> <!--end::Row-->                                                         
+                                                        </form> <!--end::Form-->                                                        
+                                                    </div>
+                                                </div> <!--end::Body-->
+                                                 <!--end::Footer-->                                                
+                                            </form> <!--end::Form-->
+                                        </div>
+                                    
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">     
+                                <div class="card">
+                                    <div class="card-header border-0">
+                                        <h3 class="card-title">Pets cadastrados</h3>
+                                    </div>                       
+                                    <div class="card-body p-0">
+                                        <table class="table table-striped align-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Nome</th>
+                                                    <th>Dono</th>
+                                                    <th>Denúncias</th>
+                                                    <th>Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="pet_list">                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card-footer clearfix"> 
+                                        <a data-bs-toggle='modal' id='NovoPetButton' data-bs-target='#novoPet'  href="#" class="btn btn-sm btn-primary float-start">
+                                            Adicionar Novo PET
+                                        </a> 
+                                    </div>
+                                </div>
+                                
+                            </div> <!-- /.card -->
+                        </div> <!-- /.Start col --> <!-- Start col -->                       
+                        </div> <!-- /.row (main row) -->
+            </div> <!--end::Container-->
+            
+        </main> <!--end::App Main--> <!--begin::Footer-->
+        
+    </div> <!--end::App Wrapper--> <!--begin::Script--> <!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js"></script> <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script> <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" ></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+    <script src="../../dist/js/adminlte.js"></script> <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+    <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../../src/utils/users.js"></script>
+    <script src="../../src/utils/pets.js"></script>
+    <script src="../../src/utils/reports.js"></script>
+    <script>
+        $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")              
+        
+        //função pegar todos os usuarios users controller.js
+        //Renderiza os usuários na pagina inicial
+
+        Get_all_pets().then((res) => {
+            if(res.length != 0){
+                res.forEach(async (item, indice) => {
+                    const node = document.createElement("tr");
+                    node.setAttribute("id", "user"+item.id);                    
+                    const foto = item.FotoName.replaceAll(" ", "_");                  
+
+                    var report = await Get_Count_Reports(item.id)
+                    
+                    node.innerHTML = '<td>'+ item.id +'</td> <td> <img src="https://ik.imagekit.io/adote/resize_'+foto+'" alt="Product 1" class="rounded-circle img-size-32 me-2"> '+item.Nome+'</td><td>'+item.nome+'</td><td>'+report+'</td><td> <div class="btn-group"> <a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i style="font-size: 1.5em;" class="text-secondary bi bi-gear-fill"></i></a><ul class="dropdown-menu"><li><a class="dropdown-item" data-bs-toggle="modal" id="viewPetButton'+item.id+'" data-bs-target="#viewPet"  href="#" class="btn btn-sm btn-primary float-start">Visualizar</a></li><li> <a class="dropdown-item" href="#">Editar</a> </li><li><hr class="dropdown-divider"></li><li> <a id="DeleteButtonPet'+item.id+'" class="dropdown-item btn btn-danger" href="#">Deletar</a> </li></ul></div>  </td>'
+                    
+                    document.getElementById("pet_list").appendChild(node);
+
+                    var viewPetButton = document.getElementById("viewPetButton"+item.id)         
+                    viewPetButton.addEventListener(
+                        "click", 
+                        function(){
+                            //petDonoModal
+                            console.log(item)
+                            const petNomeModal = document.getElementById('petNomeModal').innerHTML = item.Nome  
+                            const petIdModal = document.getElementById('petIdModal').innerHTML = item.id  
+                            const petTipoModal = document.getElementById('petTipoModal').innerHTML = item.Tipo   
+                            const petNascModal = document.getElementById('petNascModal').innerHTML = item.DataNasc    
+                            const petSexoModal = document.getElementById('petSexoModal').innerHTML = item.Sexo    
+                            const petVacinadoModal = document.getElementById('petVacinadoModal').innerHTML = item.Vacina    
+                            const petCastradoModal = document.getElementById('petCastradoModal').innerHTML = item.Castrado    
+                            const petVermifugadoModal = document.getElementById('petVermifugadoModal').innerHTML = item.Vermifugado    
+                            const petDonoModal = document.getElementById('petDescModal').innerHTML = item.Descricao      
+                            const petImgModal = document.getElementById('petImgModal').src = 'https://ik.imagekit.io/adote/resize_'+foto+''                          
+                            console.log(petImgModal)
+                        
+                        }   
+                    );  
+                    
+                    var DeleteButtonPet = document.getElementById("DeleteButtonPet"+item.id)         
+                    DeleteButtonPet.addEventListener(
+                        "click", 
+                        function(){
+                            let text = "Tem certeza que seja apagar o usuário?\nEssa ação não tem volta";
+                            if (confirm(text) == true) {                            
+                                Delete_Pet(item)
+                            } 
+                        }
+                    );  
+                    
+                });
+            }
+            else{
+                const node = document.createElement("tr");
+                node.innerHTML = "<td>0 Usuário Encontrado</td><td></td><td></td><td></td><td></td>"                
+                document.getElementById("pet_list").appendChild(node);  
+            }
+        })
+        
+        Get_all_users().then((res) => {
+            if(res.length != 0){
+                res.forEach((item, indice) => {
+                    const node = document.createElement("tr");
+                    node.setAttribute("id", "user"+item.id_user);
+                    node.innerHTML = '<td>'+ item.id_user +'</td> <td>'+ item.nome +'</td> <td>'+item.email +"</td><td>"+item.telefone +"</td> <td> <div class='btn-group'> <a type='button' data-bs-toggle='dropdown' aria-expanded='false'> <i style='font-size: 2em;' class='text-secondary bi bi-person-fill-gear'></i></a> <ul class='dropdown-menu'> <li></li> <li> <a data-bs-toggle='modal' id='EditButton_"+item.id_user+"' data-bs-target='#staticBackdrop' class='dropdown-item' href='#'>Editar</a> </li> <li> <hr class='dropdown-divider'></li><li> <a id='DeleteButton_"+item.id_user+"' class='dropdown-item btn btn-danger' href='#''>Deletar</a></li></ul></div></td>"
+                    
+                    document.getElementById("user_list").appendChild(node);
+
+                    var User_DeleteButton = document.getElementById("DeleteButton_"+item.id_user)                
+                    User_DeleteButton.addEventListener(
+                        "click", 
+                        function(){
+                            let text = "Tem certeza que seja apagar o usuário?\nEssa ação não tem volta";
+                            if (confirm(text) == true) {                            
+                                Delete_User(item)
+                            } 
+                        }
+                    );  
+                    
+                    var User_EditButton = document.getElementById("EditButton_"+item.id_user)                
+                    User_EditButton.addEventListener(
+                        "click", 
+                        function(){
+                            document.getElementById("id_user").value = item.id_user
+                            document.getElementById("InputName").value = item.nome
+                            document.getElementById("InputEmail").value = item.email
+                            document.getElementById("InputFone").value = item.telefone
+                        }
+                    ); 
+                        
+                    const User_Options = document.createElement("option");
+                    User_Options.setAttribute("id", "user"+item.id_user);
+                    User_Options.setAttribute("value", item.id_user);
+                    User_Options.innerHTML = item.nome
+                    
+                    document.getElementById("New_Dono_Select").appendChild(User_Options);
+                });
+            }
+            else{
+                const node = document.createElement("tr");
+                node.innerHTML = "<td>0 Usuário Encontrado</td><td></td><td></td><td></td><td></td>"                
+                document.getElementById("user_list").appendChild(node);
+           
+                    
+            }
+        })
+        
+        //Renderiza o contador de usuarios
+        Get_all_users().then((res) => {
+            if(res != undefined){
+                document.getElementById("count_users").innerHTML = res.length
+            }else{
+                
+                document.getElementById("count_users").innerHTML = 0
+            }
+        })
+                
+        //Ligar FORMULARIO DE EDITAR USUÁRIO HTML Form com evento do botão e enviar para a funçao de enviar o form para o backend
+        const form = document.querySelector("#Form_edit_user");
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            Send_form_User();
+            $("#staticBackdrop").modal('hide');
+        });
+
+        //Ligar FORMULARIO DE NOVO USUÁRIO HTML Form com evento do botão e enviar para a funçao de enviar o form para o backend
+        const form2 = document.querySelector("#Form_new_user");
+        form2.addEventListener("submit", (event) => {
+            event.preventDefault();
+            Send_form_NewUser();
+            $("#staticBackdrop").modal('hide');
+        });
+        
+        //Ligar FORMULARIO DE NOVO PET HTML Form com evento do botão e enviar para a funçao de enviar o form para o backend
+        const form_NewPet = document.querySelector("#Form_new_pet");
+        form_NewPet.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const selectedFile = form_NewPet.elements.New_FotoFile.files[0];
+            Send_form_NewPet(selectedFile);
+        });
+        
+        //ENVIAR DADOS DO FORMULARIO FRONTEND PARA A FUNÇÃO DE ATUALIZAR USUARIO EM USERS.JS
+        async function Send_form_User() {
+            const form_data = new FormData(form);            
+            const InputName = document.getElementById('InputName').value
+            const id_user = document.getElementById('id_user').value
+            const InputEmail = document.getElementById('InputEmail').value
+            const InputFone = document.getElementById('InputFone').value
+            form_data.append('nome', InputName);
+            form_data.append('email', InputEmail);
+            form_data.append('telefone', InputFone);
+            form_data.append('id_user', id_user);
+
+            update_User(form_data).then((res) => {
+                if(res.status == 200){
+                    alert("Editado com sucesso!");
+                    location.reload()
+                }
+            })            
+        }
+        //ENVIAR DADOS DO FORMULÁRIO FRONTEND PARA A FUNÇÃO DE NOVO USUARIO EM USERS.JS
+        async function Send_form_NewUser() {
+            const form_data = new FormData(form);            
+            const InputName = document.getElementById('NewInputName').value
+            const InputEmail = document.getElementById('NewInputEmail').value
+            const InputFone = document.getElementById('NewInputFone').value
+            const InputSenha = document.getElementById('NewInputSenha').value
+            form_data.append('nome', InputName);
+            form_data.append('email', InputEmail);
+            form_data.append('telefone', InputFone);
+            form_data.append('senha', InputSenha);
+
+            New_User(form_data).then((res) => {
+                if(res.status == 200){
+                    alert("Adicionado com sucesso!");
+                }        
+                location.reload()
+            })            
+        }
+        
+        //ENVIAR DADOS DO FORMULÁRIO FRONTEND PARA A FUNÇÃO DE NOVO PET EM PETS.JS
+        async function Send_form_NewPet(file) {
+            const form_data = new FormData(form_NewPet);            
+            const New_Pet_Name = document.getElementById('New_Pet_Name').value
+            const New_Dono_Select = document.getElementById('New_Dono_Select').value
+            const New_Tipo = document.querySelector('input[name="New_Tipo"]:checked').value;
+            const New_Sexo = document.querySelector('input[name="New_Sexo"]:checked').value;
+            const New_Data_nasc = document.getElementById('New_Data_nasc').value
+            const New_Vacinado = document.getElementById('New_Vacinado').value
+            const New_Vermifugado = document.getElementById('New_Vermifugado').value
+            const New_Castrado = document.getElementById('New_Castrado').value
+
+            const New_FotoFile = document.getElementById('New_FotoFile').value
+            const New_Desc = document.getElementById('New_Desc').value
+
+            let filename = New_FotoFile.split("\\").pop(); 
+            
+            filename = new Date().toISOString().replace(/:/g, '-') + filename
+            
+            
+            form_data.append('produto_imagem', file);
+            form_data.append('Nome', New_Pet_Name);
+            form_data.append('DataNasc', New_Data_nasc);
+            form_data.append('Sexo', New_Sexo);
+            form_data.append('Tipo', New_Tipo);
+            form_data.append('Vacina', New_Vacinado);
+            form_data.append('id_user', New_Dono_Select);
+            form_data.append('Vermifugado', New_Vermifugado);
+            form_data.append('Castrado', New_Castrado)        
+                
+
+            form_data.append('FotoName', filename);
+            form_data.append('Descricao', New_Desc);
+
+            New_Pet(form_data).then((res) => {
+                if(res.status == 200){
+                    alert("Adicionado com sucesso!");
+                }        
+                location.reload()
+            })            
+        }
+    </script>
+</body>
+
+</html>
