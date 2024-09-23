@@ -16,18 +16,18 @@
     <div class="login-box">
         <div class="card card-outline card-primary">
             <div class="card-header"> 
-                <h1 class="mb-0"> <b>ADOTE - </b>ADM
+                <h1 style="text-align: center;"> <b>ADOTE - </b>ADM
                 </h1>
             </div>
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Faça login para começar</p>
                 <form id="login_form">
                     <div class="input-group mb-1">
-                        <div class="form-floating"> <input id="loginEmail" type="email" class="form-control" value="" placeholder=""> <label for="loginEmail">Email</label> </div>
+                        <div class="form-floating"> <input id="loginEmail" required type="email" class="form-control" value="" placeholder=""> <label for="loginEmail">Email</label> </div>
                         <div class="input-group-text"> <span class="bi bi-envelope"></span> </div>
                     </div>
                     <div class="input-group mb-1">
-                        <div class="form-floating"> <input id="loginPassword" type="password" class="form-control" placeholder=""> <label for="loginPassword">Senha</label> </div>
+                        <div class="form-floating"> <input id="loginPassword" required type="password" class="form-control" placeholder=""> <label for="loginPassword">Senha</label> </div>
                         <div class="input-group-text"> <span class="bi bi-lock-fill"></span> </div>
                     </div>
                     <div class="row">
@@ -67,9 +67,10 @@
                     localStorage.setItem("token", res.token);
                     window.location.href = './index.html'
                 }
-            }).catch(err => {              
+            }).catch(err => {
+                console.log(err)              
                 alert(err);
-                location.reload()
+                //location.reload()
             })
         }
     
