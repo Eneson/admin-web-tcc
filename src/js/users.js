@@ -1,5 +1,5 @@
 //DELETAR USUÁRIO DO BANCO DE DADOS
-const Delete_User= (item) => { 
+const Delete_User = (item) => { 
     return new Promise((resolve, reject) => { 
         api.delete('user/'+item.telefone, {
             headers: {

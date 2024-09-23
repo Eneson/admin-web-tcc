@@ -573,9 +573,9 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
 
             ShowLoading(false)
 
-           New_User(form_data).then(() => { alert("Adicionado com sucesso!")}).catch((err)=>{alert(err)}) .finally(() => {
-            location.reload()
-        })           
+           New_User(form_data)
+           .then(() => { alert("Adicionado com sucesso!")})
+           .catch((err)=>{ alert(err)}) .finally(() => { })           
         }
         
         //ENVIAR DADOS DO FORMULÁRIO FRONTEND PARA A FUNÇÃO DE NOVO PET EM PETS.JS
