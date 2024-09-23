@@ -290,7 +290,7 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
                             DeleteButtonPet.addEventListener(
                                 "click", 
                                 function(){
-                                    let text = "Tem certeza que seja apagar o usuário?\nEssa ação não tem volta";
+                                    let text = "Tem certeza que seja apagar o pet?\nEssa ação não tem volta";
                                     if (confirm(text) == true) {       
                                         ShowLoading(true)                    
                                         Delete_Pet(item).then(() => {

@@ -39,11 +39,11 @@ function update_User(form_data){
         })
         .then(response => {
             resolve(response.data)       
-        })  
+        })
         .catch(error => { 
             reject(new Error('Não foi possível atualizar o Usuários'))
         })
-    })   
+    })
 }
 //ADICIONAR USUÁRIO AO BANCO DE DADOS
 function New_User(form_data){
@@ -57,7 +57,7 @@ function New_User(form_data){
             resolve(response.data)       
         })  
         .catch(error => { 
-            reject(new Error('Não foi possível atualizar o Usuários'))
+            reject(new Error('Não foi possível Criar o Usuários'))
         })
     }) 
 }
