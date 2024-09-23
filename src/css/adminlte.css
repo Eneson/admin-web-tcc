@@ -12920,12 +12920,17 @@ textarea.form-control-lg {
 [data-bs-theme=light] {
   --lte-sidebar-width: 250px;
 }
+@media (min-width: 991px) {
+  .app-wrapper{
+    margin-right: 100px;
+    margin-left: 100px;
+  }
+
+}
 
 .app-wrapper {
   box-shadow: 0px 0px 6px 0px #000000 !important;
   position: relative;
- margin-right: 100px;
-  margin-left: 100px;
   display: grid;
   background-color: #FAFAFA;
   grid-template-areas: "lte-app-sidebar lte-app-header" "lte-app-sidebar lte-app-main" "lte-app-sidebar lte-app-footer";
