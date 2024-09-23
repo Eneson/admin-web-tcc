@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en"> <!--begin::Head-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>AdminLTE v4 | Dashboard</title><!--begin::Primary Meta Tags-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="AdminLTE v4 | Dashboard"><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../../config/api.js"></script>    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../css/adminlte.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css">
+</head>
+
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
+    <div id="loading1" style="display: none; position: fixed; z-index: 1090;width: 100%;height: 100%;align-items: center; background-color: #0000004d;"></div>
+    <div id="loading2" style="display: none; position: fixed; z-index: 1100; width: 100%; height: 100%; align-items: center;justify-content: center;">
+        <div class="spinner-border text-primary" role="status" >
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <div class="app-wrapper"> <!--begin::Header-->
+        <nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
+            <div class="container-fluid"> <!--begin::Start Navbar Links-->
+                
+                <ul style="align-items: center;" class="navbar-nav ms-auto"> <!--begin::Navbar Search-->
+                    <li class="nav-item" style="margin-right: 10px;">                        
+                        <span id="Nav_nome">NOME DO USUARIOS</span>                                                
+                    </li>
+                    <li class="nav-item">
+                        <a onclick="Logout()" href="#" class="btn btn-secondary btn-flat float-end">Sair</a>
+                    </li>
+                </ul>
+            </div> <!--end::Container-->
+        </nav> <!--end::Header--> <!--begin::Sidebar-->
+        
+        <main class="app-main"> <!--begin::App Content Header-->
+            <div class="app-content-header"> <!--begin::Container-->
+                <div class="container-fluid"> <!--begin::Row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3 class="mb-0">Início</h3>
+                        </div>
+                    </div> <!--end::Row-->
+                </div> <!--end::Container-->
+            </div> <!--end::App Content Header--> <!--begin::App Content-->
+            <div class="app-content"> <!--begin::Container-->
+                    <div class="container-fluid"> <!--begin::Row-->
+                        <div class="row"> <!--begin::Col-->
+                            <div class="col-lg-4 col-6"> <!--begin::Usuários Box-->
+                                <div class="small-box text-bg-primary">
+                                    <div class="inner">
+                                        <h3 id="count_users">0</h3>
+                                        <p>Usuários</p>
+                                    </div> <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"></path>
+                                    </svg> <a href="#" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
+                                        Mais informações <i class="bi bi-link-45deg"></i> </a>
+                                </div> <!--end::Usuários Box-->
+                            </div> <!--end::Col-->
+                            <div class="col-lg-4 col-6"> <!--begin::Pets cadastrados Box-->
+                                <div class="small-box text-bg-success">
+                                    <div class="inner">
+                                        <h3 id="count_pets">0</h3>
+                                        <p>Pets cadastrados</p>
+                                    </div> <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"></path>
+                                    </svg> <a href="#" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
+                                        Mais informações <i class="bi bi-link-45deg"></i> </a>
+                                </div> <!--end::Pets cadastrados Box-->
+                            </div> <!--end::Col-->                        
+                            <div class="col-lg-4 col-6"> <!--begin::Denúncias Box -->
+                                <div class="small-box text-bg-danger">
+                                    <div class="inner">
+                                        <h3 id="count_reports">0</h3>
+                                        <p>Denúncias</p>
+                                    </div> <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z"></path>
+                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z"></path>
+                                    </svg> <a href="#" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
+                                        Mais informações <i class="bi bi-link-45deg"></i> </a>
+                                </div> <!--end::Denúncias Box-->
+                            </div>
+                        </div>
+                        <!-- SEÇÃO DE USUARIOS -->
+                         <div class="row">
+                            <div class="col-12"> <!-- Start col -->
+                                 <!-- MODAL EDITAR USER -->
+                                 <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                     <div class="modal-dialog modal-dialog-centered">
+                                       <div class="modal-content">
+                                         <div class="modal-header">
+                                           <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Usuário</h1>
+                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                         </div>
+                                         <div class="modal-body">
+                                             <div class="card-primary"> <!--begin::Header-->
+                                                 
+                                                 <form id="Form_edit_user"> <!--begin::Body-->
+                                                     <div class="card-body">
+                                                         <input style="display: none;" type="text" id="id_user"/>                                               
+                                                         <div class="mb-3"> <label for="InputName" class="form-label">Nome</label> <input type="text" class="form-control" id="Edit_InputName"></div>
+                                                         <div class="mb-3"> <label for="InputEmail" class="form-label">Email address</label> <input type="email" class="form-control" id="Edit_InputEmail" aria-describedby="emailHelp"></div>
+                                                         <div class="mb-3"><label for="inputFone" class="form-label">Telefone</label><input type="text" class="form-control" id="Edit_InputFone" placeholder="Telefone"></div>
+                                                     </div> <!--end::Body--> <!--begin::Footer-->
+                                                      <!--end::Footer-->
+                                                      <div class="modal-footer">
+                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                         <input type="submit" value="Confirmar" class="btn btn-primary"/>
+                                                       </div>
+                                                 </form> <!--end::Form-->
+                                             </div>
+                                         </div>
+                                         
+                                       </div>
+                                     </div>
+                                 </div>
+                                 <!-- MODAL NOVO USUÁRIO -->
+                                 <div class="modal fade " id="novoUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                     <div class="modal-dialog modal-dialog-centered">
+                                       <div class="modal-content">
+                                         <div class="modal-header">
+                                           <h1 class="modal-title fs-5" id="novoUsuario">Novo Usuário</h1>
+                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                         </div>
+                                         <div class="modal-body">
+                                             <div class="card-primary"> <!--begin::Header-->                                            
+                                                 <form id="Form_new_user"> <!--begin::Body-->
+                                                     <div class="card-body">                                             
+                                                         <div class="mb-3"> <label for="NewInputName" class="form-label">Nome</label> <input placeholder="Nome Completo" type="text" class="form-control" id="NewInputName"></div>
+                                                         <div class="mb-3"> <label for="NewInputEmail" class="form-label">Email</label> <input placeholder="Email@mail.com" type="email" class="form-control" id="NewInputEmail" aria-describedby="emailHelp"></div>
+                                                         <div class="mb-3"><label for="NewInputFone" class="form-label">Telefone</label><input type="text" class="form-control" id="NewInputFone" placeholder="Telefone"></div>
+                                                         <div class="mb-3"><label for="NewInputSenha" class="form-label">Senha</label><input type="password" class="form-control" id="NewInputSenha" placeholder="Senha"></div>
+                                                        <div class="mb-3">
+                                                            <div class="form-check">
+                                                                <div class="form-check form-switch">
+                                                                    <label class="form-check-label" for="New_check_adm">Administrador</label>
+                                                                    <input class="form-check-input" type="checkbox" id="New_check_adm">
+                                                                </div>  
+                                                            </div>
+                                                        </div>
+                                                     </div> <!--end::Body--> <!--begin::Footer-->
+                                                      <!--end::Footer-->
+                                                     <div class="modal-footer">
+                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                         <input type="submit" value="Confirmar" class="btn btn-primary"/>
+                                                     </div>
+                                                 </form> <!--end::Form-->
+                                             </div>
+                                         </div>
+                                         
+                                       </div>
+                                     </div>
+                                 </div>
+                                 <!-- CARD USUÁRIOS --> 
+                                <div class="card">
+                                    <div class="card-header border-0">
+                                        <h3 class="card-title">Usuários cadastrados</h3>
+                                    </div>   
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive" style="max-height: 400px; overflow-y: scroll;"> 
+                                            <table class="table table-striped align-middle">
+                                            <thead>                                                   
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Usuário</th>
+                                                    <th>Email</th>
+                                                    <th>Telefone</th>
+                                                    <th>ADM</th>
+                                                    <th>Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="user_list"> 
+                                                    <tr class="card-text placeholder-glow">
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;">
+                                                            <i style="font-size: 2em;" class="text-secondary bi bi-person-fill-gear"></i>                                                       
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="card-text placeholder-glow">
+                                                            <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                            <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                            <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                            <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                            <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;">
+                                                                <i style="font-size: 2em;" class="text-secondary bi bi-person-fill-gear"></i>                                                       
+                                                            </td>
+                                                        
+                                                    </tr>
+                                                        
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    </div>                       
+                                    <div class="card-footer clearfix"> 
+                                        <a data-bs-toggle='modal' id='NovoUsuarioButton' data-bs-target='#novoUsuario'  href="#" class="btn btn-sm btn-primary float-start">
+                                            Adicionar Novo Usuário
+                                        </a> 
+                                    </div>
+                                </div> <!-- /.card -->
+                            </div>
+                             
+                         </div>
+                        
+                         <div class="row">
+                             <!-- SEÇÃO DE PETS -->
+                            <div class="col-6" style="margin-top: 10px;">
+                                <!-- MODAL NOVO PET -->
+                                <div class="modal fade " id="novoPet" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                      <div class="modal-content">                                    
+                                            <div class="card-primary"> <!--begin::Header-->                                            
+                                                <form id="Form_new_pet"> <!--begin::Body-->
+                                                    <div class="card-body">                                             
+                                                        <div class="card card-info card-outline mb-4"> <!--begin::Header-->
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="novoPet">Novo Pet</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                              </div> <!--end::Header--> <!--begin::Form-->
+                                                            <form class="needs-validation" novalidate=""> <!--begin::Body-->
+                                                                <div class="card-body"> <!--begin::Row-->
+                                                                    <div class="row g-3"> <!--begin::Col-->
+                                                                        <div class="col-md-6">
+                                                                            <label for="validationCustom01" class="form-label">Nome do pet</label>
+                                                                            <input type="text" class="form-control" id="New_Pet_Name" required="">
+                                                                        
+                                                                        </div> <!--end::Col--> <!--begin::Col-->
+                                                                        <div class="col-md-6">
+                                                                            <label for="validationCustom04" class="form-label">Selecionar Dono</label>
+                                                                            <select class="form-select" id="New_Dono_Select" required="">
+                                                                                <option selected="" disabled="" value="">Selecione...</option>
+                                                                            </select>                                                                        
+                                                                        </div> <!--end::Col--> <!--begin::Col-->
+                                                                        <div class="col-md-6">  
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <fieldset>                                                                             
+                                                                                        <legend class="col-form-label pt-0">SEXO</legend>
+                                                                                            <div class="form-check">
+                                                                                                <input class="form-check-input" type="radio" name="New_Sexo" id="New_Macho" value="Macho" checked="">
+                                                                                                <label class="form-check-label" for="New_Macho">
+                                                                                                    Macho
+                                                                                                </label>
+                                                                                            </div>
+                                                                                            <div class="form-check">
+                                                                                                <input class="form-check-input" type="radio" name="New_Sexo" id="New_Femea" value="Fêmea">
+                                                                                                <label class="form-check-label" for="New_Femea">
+                                                                                                    Fêmea
+                                                                                                </label>
+                                                                                            </div>
+                                                                                    </fieldset>      
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <fieldset>                                                                             
+                                                                                        <legend class="col-form-label pt-0"> </legend>
+                                                                                            <div class="form-check">
+                                                                                                <input class="form-check-input" type="radio" name="New_Tipo" id="New_Cao" value="Cão" checked="">
+                                                                                                <label class="form-check-label" for="New_Cao">
+                                                                                                    Cão
+                                                                                                </label>
+                                                                                            </div>
+                                                                                            <div class="form-check">
+                                                                                                <input class="form-check-input" type="radio" name="New_Tipo" id="New_Gato" value="Gato">
+                                                                                                <label class="form-check-label" for="New_Gato">
+                                                                                                    Gato
+                                                                                                </label>
+                                                                                            </div>
+                                                                                    </fieldset>  
+                                                                                </div>
+                                                                            </div>                                                                      
+                                                                            
+                                                                                                                                                                                                              
+                                                                        </div> <!--end::Col--> <!--begin::Col-->
+                                                                        <div class="col-md-6">
+                                                                            <label for="validationCustom03" class="form-label">Data de Nascimento</label>
+                                                                            <input type="date" class="form-control" id="New_Data_nasc" required="">                                                                        
+                                                                        </div> <!--end::Col--> <!--begin::Col-->
+                                                                        
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-check form-switch">
+                                                                                <input class="form-check-input" type="checkbox" id="New_Vacinado">
+                                                                                <label class="form-check-label" for="New_Vacinado">Vacinado</label>
+                                                                              </div>                                                                       
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-check form-switch">
+                                                                                <input class="form-check-input" type="checkbox" value="" id="New_Vermifugado">
+                                                                                <label class="form-check-label" for="New_Vermifugado">Vermifugado</label>
+                                                                              </div>                                                                       
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-check form-switch">
+                                                                                <input class="form-check-input" type="checkbox" id="New_Castrado">
+                                                                                <label class="form-check-label" for="New_Castrado">Castrado</label>
+                                                                              </div>                                                                       
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                            <div class="mb-3">
+                                                                                <label for="New_FotoFile" class="form-label">Selecionar Foto</label>
+                                                                                <input class="form-control" type="file" id="New_FotoFile">
+                                                                              </div>
+                                                                        </div> <!--end::Col-->
+                                                                        <div class="col-12">
+                                                                            <div class="form-floating">
+                                                                                <textarea class="form-control" placeholder="Leave a comment here" id="New_Desc" style="height: 100px"></textarea>
+                                                                                <label for="New_Desc">Descrição</label>
+                                                                              </div>
+                                                                        </div> <!--end::Col-->
+                                                                    </div> <!--end::Row-->
+                                                                </div> <!--end::Body--> <!--begin::Footer-->
+                                                                <div class="card-footer">
+                                                                    <button style="margin-left: 10px;" type="button" class="float-end btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                                    <input type="submit" value="Confirmar" class="float-end btn btn-primary"/>                                                                
+                                                                </div> <!--end::Footer-->
+                                                            </form> <!--end::Form--> <!--begin::JavaScript-->
+                                                            
+                                                        </div>
+                                                    </div> <!--end::Body--> <!--begin::Footer-->
+                                                     <!--end::Footer-->                                                
+                                                </form> <!--end::Form-->
+                                            </div>                                    
+                                      </div>
+                                    </div>
+                                </div>
+                                <!-- MODAL EDITAR PET -->
+                                <div class="modal fade " id="editarPet" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                      <div class="modal-content">                                    
+                                            <div class="card-primary"> <!--begin::Header-->                                            
+                                                <form id="Form_edit_pet"> <!--begin::Body-->
+                                                    <div class="card-body">                                             
+                                                        <div class="card card-info card-outline mb-4"> <!--begin::Header-->
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="novoPet">Editar Pet</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                              </div> <!--end::Header--> <!--begin::Form-->
+                                                            <form class="needs-validation" novalidate=""> <!--begin::Body-->
+                                                                <div class="card-body"> <!--begin::Row-->
+                                                                    <div class="row g-3"> <!--begin::Col-->
+                                                                        <div class="col-md-6">
+                                                                            <input style="display: none;" value="" type="text" id="Edit_Pet_Id">
+                                                                            <label for="Edit_Pet_Name" class="form-label">Nome do pet</label>
+                                                                            <input type="text" class="form-control" id="Edit_Pet_Name" required="">
+                                                                        
+                                                                        </div> <!--end::Col--> <!--begin::Col-->
+                                                                        <div class="col-md-6">
+                                                                            <label for="Edit_Dono_Select" class="form-label">Selecionar Dono</label>
+                                                                            <select class="form-select" id="Edit_Dono_Select" required="">
+                                                                                <option id="Edit_Dono_Select_atual" value=""></option>
+                                                                            </select>                                                                        
+                                                                        </div> <!--end::Col--> <!--begin::Col-->
+                                                                        <div class="col-md-6">  
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <fieldset>                                                                             
+                                                                                        <legend class="col-form-label pt-0">SEXO</legend>
+                                                                                            <div class="form-check">
+                                                                                                <input class="form-check-input" type="radio" name="Edit_Sexo" id="Edit_Macho" value="Macho" checked="">
+                                                                                                <label class="form-check-label" for="Edit_Macho">
+                                                                                                    Macho
+                                                                                                </label>
+                                                                                            </div>
+                                                                                            <div class="form-check">
+                                                                                                <input class="form-check-input" type="radio" name="Edit_Sexo" id="Edit_Femea" value="Fêmea">
+                                                                                                <label class="form-check-label" for="Edit_Femea">
+                                                                                                    Fêmea
+                                                                                                </label>
+                                                                                            </div>
+                                                                                    </fieldset>      
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <fieldset>                                                                             
+                                                                                        <legend class="col-form-label pt-0"> </legend>
+                                                                                            <div class="form-check">
+                                                                                                <input class="form-check-input" type="radio" name="Edit_Tipo" id="Edit_Cao" value="Cão" checked="">
+                                                                                                <label class="form-check-label" for="Edit_Cao">
+                                                                                                    Cão
+                                                                                                </label>
+                                                                                            </div>
+                                                                                            <div class="form-check">
+                                                                                                <input class="form-check-input" type="radio" name="Edit_Tipo" id="Edit_Gato" value="Gato">
+                                                                                                <label class="form-check-label" for="Edit_Gato">
+                                                                                                    Gato
+                                                                                                </label>
+                                                                                            </div>
+                                                                                    </fieldset>  
+                                                                                </div>
+                                                                            </div>                                                                      
+                                                                            
+                                                                                                                                                                                                              
+                                                                        </div> <!--end::Col--> <!--begin::Col-->
+                                                                        <div class="col-md-6">
+                                                                            <label for="Edit_Data_nasc" class="form-label">Data de Nascimento</label>
+                                                                            <input type="date" class="form-control" id="Edit_Data_nasc" required="">                                                                        
+                                                                        </div> <!--end::Col--> <!--begin::Col-->
+                                                                        
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-check form-switch">
+                                                                                <input class="form-check-input" type="checkbox" id="Edit_Vacinado">
+                                                                                <label class="form-check-label" for="Edit_Vacinado">Vacinado</label>
+                                                                              </div>                                                                       
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-check form-switch">
+                                                                                <input class="form-check-input" type="checkbox" value="" id="Edit_Vermifugado">
+                                                                                <label class="form-check-label" for="Edit_Vermifugado">Vermifugado</label>
+                                                                              </div>                                                                       
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-check form-switch">
+                                                                                <input class="form-check-input" type="checkbox" id="Edit_Castrado">
+                                                                                <label class="form-check-label" for="Edit_Castrado">Castrado</label>
+                                                                              </div>                                                                       
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                            <div style="display: flex;" class="mb-3">
+                                                                                <form runat="server">
+                                                                                </form>
+                                                                                <div>
+                                                                                    <img id="blah" src="#" alt="your image" class="img-size-64 me-2"/>
+                                                                                </div>
+                                                                                <div style="align-self: center;">
+                                                                                    <input accept="image/*" type='file' class="form-control" id="imgInp" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div> <!--end::Col-->
+                                                                        <div class="col-12">
+                                                                            <div class="form-floating">
+                                                                                <textarea class="form-control" placeholder="Faça uma descrição do seu pet" id="Edit_Desc" style="height: 100px"></textarea>
+                                                                                <label for="Edit_Desc">Descrição</label>
+                                                                              </div>
+                                                                        </div> <!--end::Col-->
+                                                                    </div> <!--end::Row-->
+                                                                </div> <!--end::Body-->
+                                                                <div class="card-footer">
+                                                                    <button style="margin-left: 10px;" type="button" class="float-end btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                                    <input type="submit" value="Confirmar" id="Edit_Pet_Submit" class="float-end btn btn-primary"/>                                                                
+                                                                </div> <!--end::Footer-->
+                                                            </form> <!--end::Form--> <!--begin::JavaScript-->
+                                                            
+                                                        </div>
+                                                    </div> <!--end::Body-->
+                                                     <!--end::Footer-->                                                
+                                                </form> <!--end::Form-->
+                                            </div>                                    
+                                      </div>
+                                    </div>
+                                </div>                            
+                                <!-- MODAL VISUALIZAR PET -->
+                                <div class="modal fade " id="viewPet" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                      <div class="modal-content">                                    
+                                            <div class="card-primary"> <!--begin::Header-->   
+                                                <div class="card-body">                                             
+                                                    <div class="card card-outline"> <!--begin::Header-->
+                                                        <div class="modal-header">
+                                                            <div style="width: 100%; display: flex; justify-content: space-between;">
+                                                                <h1 id="petIdModal" class="modal-title fs-5">Id do pet</h1>
+                                                                <h1 id="petNomeModal" class="modal-title fs-5">Nome do pet</h1>
+                                                                <h1 id="petTipoModal" style="margin-right: 20px;" class="modal-title fs-5">Tipo do pet</h1>
+                                                            </div>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div> <!--end::Header--> <!--begin::Form-->
+                                                            <div class="card" style="border-radius: 0px;">
+                                                                <div class="row" style="align-self: center; margin-top: 10px;">
+                                                                    <div class="col-12" style="display: flex;">
+                                                                        <h1 style="margin-right: 5px;" class="modal-title fs-5">Dono:</h1>        
+                                                                        <h1 id="petDonoModal" class="modal-title fs-5">Nome do Dono</h1>                                                                      
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div style="text-align: center;margin-top: 20px;margin-bottom: 20px;">
+                                                                        <img style="max-width: 250px; width: auto; height: auto;" height="300" id="petImgModal" src="..." class="card-img-top" alt="...">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div style="justify-content: space-between; display: flex;" class="col-12">
+                                                                                    <div style="display: flex;" >
+                                                                                        <h5 style="margin-right: 5px;" class="card-title">Data de Nascimento:</h5><br>
+                                                                                        <p id="petNascModal" class="card-text">17/09/2024</p>
+                                                                                    </div>
+                                                                                    <div style="margin-right: 30px;">
+                                                                                        <p id="petSexoModal" class="card-text">Macho</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div style="margin-top: 20px;" class="row">
+                                                                                <div style="justify-content: space-between; display: flex;" class="col-12">
+                                                                                    <div>
+                                                                                        <h5 style="text-align: center;" class="card-title">Vacinado</h5><br>
+                                                                                        <p id="petVacinadoModal" style="text-align: center;" class="card-text">SIM</p>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <h5 style="text-align: center;" class="card-title">Castrado</h5><br>
+                                                                                        <p id="petCastradoModal" style="text-align: center;" class="card-text">NÃO</p>
+                                                                                    </div>
+                                                                                    <div >
+                                                                                        <h5 style="text-align: center;" class="card-title">Vermifugado</h5><br>
+                                                                                        <p id="petVermifugadoModal" style="text-align: center;" class="card-text">SIM</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>                                                                                
+                                                                            <div style="border-top: solid 1px #898b8d;margin-top: 20px;" class="row">
+                                                                                <div class="col-12">
+                                                                                    <div style="margin-top: 5px;">
+                                                                                        <h5 class="card-title">Mais informações</h5><br>
+                                                                                        <p id="petDescModal" style="text-align: justify;" class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos corporis labore animi exercitationem repellendus dolorum aut quo nemo eum provident dolore pariatur iure, ipsa accusamus enim error unde veritatis? Labore?</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            </div>
+                                                                    </div>
+                                                                </div>                                                                        
+                                                            </div> <!--end::Row-->                                                        
+                                                    </div>
+                                                </div> <!--end::Body-->
+                                                     <!--end::Footer-->    
+                                            </div>
+                                        
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">     
+                                    <div class="card">
+                                        <div class="card-header border-0">
+                                            <h3 class="card-title">Pets cadastrados</h3>
+                                        </div>                       
+                                        <div class="card-body p-0">
+                                            <table class="table table-striped align-middle">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Nome</th>
+                                                        <th>Dono</th>
+                                                        <th>Denúncias</th>
+                                                        <th>Ações</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="pet_list">
+                                                    <tr class="card-text placeholder-glow">
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;">
+                                                            <div class="btn-group">
+                                                                <i style="font-size: 1.5em;" class="text-secondary bi bi-gear-fill"></i>                                                        
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="card-text placeholder-glow">
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;">
+                                                            <div class="btn-group">
+                                                                <i style="font-size: 1.5em;" class="text-secondary bi bi-gear-fill"></i>                                                        
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="card-text placeholder-glow">
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;">
+                                                            <div class="btn-group">
+                                                                <i style="font-size: 1.5em;" class="text-secondary bi bi-gear-fill"></i>                                                        
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="card-text placeholder-glow">
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;">
+                                                            <div class="btn-group">
+                                                                <i style="font-size: 1.5em;" class="text-secondary bi bi-gear-fill"></i>                                                        
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="card-text placeholder-glow">
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;">
+                                                            <div class="btn-group">
+                                                                <i style="font-size: 1.5em;" class="text-secondary bi bi-gear-fill"></i>                                                        
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="card-footer clearfix" style="min-height: 50px;width: 100%; display: flex; align-items: center; justify-content: space-between;">
+                                            <div>
+                                                <nav style="align-items: center;" aria-label="Page navigation example">
+                                                    <ul id="pagination" class="pagination" >
+                                                        <li id="page_PreviousPage" class="page-item">
+                                                            
+                                                            <a id="PreviousPage" class="page-link" href="#" aria-label="Previous">
+                                                                <span aria-hidden="true">«</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                            <div style="position: absolute; right: 0px; margin-right: 20px;">
+                                                <a style="width: 100%;" data-bs-toggle='modal' id='NovoPetButton' data-bs-target='#novoPet'  href="#" class="btn btn-sm btn-primary float-start">
+                                                    Adicionar Novo PET
+                                                </a> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div> <!-- /.card -->
+                                
+                            </div>
+                            <!-- SEÇÃO DE DENUNCIAS -->  
+                            <div class="col-6" style="margin-top: 10px;">
+                                <div class="col-lg-12">     
+                                    <div class="card">
+                                        <div class="card-header border-0">
+                                            <h3 class="card-title">Denúncias</h3>
+                                        </div>                       
+                                        <div class="card-body p-0">
+                                            <table class="table table-striped align-middle">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Nome Dono</th>
+                                                        <th>Id Dono</th>
+                                                        <th>Nome Pet</th>
+                                                        <th>Nome Id</th>
+                                                        <th>Descrição</th>
+                                                        <th>Ações</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="reports_list">
+                                                    <tr class="card-text placeholder-glow">
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;">
+                                                            <div class="btn-group">
+                                                                <i style="font-size: 1.5em;" class="text-secondary bi bi-gear-fill"></i>                                                        
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="card-text placeholder-glow">
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;">
+                                                            <div class="btn-group">
+                                                                <i style="font-size: 1.5em;" class="text-secondary bi bi-gear-fill"></i>                                                        
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="card-text placeholder-glow">
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;">
+                                                            <div class="btn-group">
+                                                                <i style="font-size: 1.5em;" class="text-secondary bi bi-gear-fill"></i>                                                        
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="card-text placeholder-glow">
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;">
+                                                            <div class="btn-group">
+                                                                <i style="font-size: 1.5em;" class="text-secondary bi bi-gear-fill"></i>                                                        
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="card-text placeholder-glow">
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;"></td>
+                                                        <td style="animation: placeholder-glow 2s ease-in-out infinite; cursor: wait;">
+                                                            <div class="btn-group">
+                                                                <i style="font-size: 1.5em;" class="text-secondary bi bi-gear-fill"></i>                                                        
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="card-footer clearfix" style="min-height: 50px;width: 100%; display: flex; align-items: center; justify-content: space-between;">
+                                            <div>
+                                                <nav style="align-items: center;" aria-label="Page navigation example">
+                                                    <ul id="pagination_report" class="pagination" >
+                                                        <li id="page_PreviousPage_report" class="page-item">                                                            
+                                                            <a id="PreviousPage_report" class="page-link" href="#" aria-label="Previous">
+                                                                <span aria-hidden="true">«</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                            <div style="position: absolute; right: 0px; margin-right: 20px;">
+                                                <a style="width: 100%;" data-bs-toggle='modal' id='NovoPetButton' data-bs-target='#novoPet'  href="#" class="btn btn-sm btn-primary float-start">
+                                                    Adicionar Novo PET
+                                                </a> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div> <!-- /.card -->                                
+                            </div> 
+                         </div>
+                                            
+                    </div> 
+            </div> <!--end::Container-->
+            
+        </main> <!--end::App Main--> <!--begin::Footer-->
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" ></script>
+    <script src="../../js/adminlte.js"></script>
+    <script src="../../js/users.js"></script>
+    <script src="../../js/pets.js"></script>
+    <script src="../../js/reports.js"></script>
+    <script src="../../js/index.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        
+    </script>
+</body>
+
+</html>
