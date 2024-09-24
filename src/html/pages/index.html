@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="AdminLTE v4 | Dashboard"><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="../../config/api.js"></script>    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css">
@@ -17,7 +17,12 @@
 </head>
 
 <body> <!--begin::App Wrapper-->
-    
+    <div id="loading1" style="display: none; position: fixed; z-index: 1090;width: 100%;height: 100%;align-items: center; background-color: #0000004d;"></div>
+    <div id="loading2" style="display: none; position: fixed; z-index: 1100; width: 100%; height: 100%; align-items: center;justify-content: center;">
+        <div class="spinner-border text-primary" role="status" >
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
     <div class="app-wrapper"> <!--begin::Header-->
         <nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Start Navbar Links-->
@@ -104,7 +109,7 @@
                                                       <!--end::Footer-->
                                                       <div class="modal-footer">
                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                                         <input type="submit" value="Confirmar" class="btn btn-primary"/>
+                                                         <input id="Submit_EditUser" type="button" value="Confirmar" class="btn btn-primary"/>
                                                        </div>
                                                  </form> <!--end::Form-->
                                              </div>
@@ -141,12 +146,11 @@
                                                       <!--end::Footer-->
                                                      <div class="modal-footer">
                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                                         <input type="submit" value="Confirmar" class="btn btn-primary"/>
+                                                         <input id='new_admin_submit' type="button" value="Confirmar" class="btn btn-primary"/>
                                                      </div>
                                                  </form> <!--end::Form-->
                                              </div>
-                                         </div>
-                                         
+                                         </div>                                         
                                        </div>
                                      </div>
                                  </div>
@@ -190,15 +194,27 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    </div>                       
-                                    <div class="card-footer clearfix"> 
-                                        <a data-bs-toggle='modal' id='NovoUsuarioButton' data-bs-target='#novoUsuario'  href="#" class="btn btn-sm btn-primary float-start">
-                                            Adicionar Novo Usuário
-                                        </a> 
+                                    </div>
+                                    <div class="card-footer clearfix" style="min-height: 50px;width: 100%; display: flex; align-items: center; justify-content: space-between;">
+                                        <div>
+                                            <nav style="align-items: center;" aria-label="Page navigation example">
+                                                <ul id="pagination_users" class="pagination">
+                                                    <li id="page_PreviousPage_users" class="disabled">                                                        
+                                                        <a id="PreviousPage_user" class="page-link" href="#" aria-label="Previous" onclick="render_all_users(0)">
+                                                            <span aria-hidden="true">«</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                        <div style="position: absolute; right: 0px; margin-right: 20px;">
+                                            <a style="width: 100%;" data-bs-toggle="modal" data-bs-target="#novoUsuario" href="#" class="btn btn-sm btn-primary float-start">
+                                                Adicionar Usuário
+                                            </a> 
+                                        </div>
                                     </div>
                                 </div> <!-- /.card -->
-                            </div>
-                             
+                            </div>                             
                          </div>
                         
                          <div class="row">
@@ -309,7 +325,7 @@
                                                                 </div> <!--end::Body--> <!--begin::Footer-->
                                                                 <div class="card-footer">
                                                                     <button style="margin-left: 10px;" type="button" class="float-end btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                                                    <input type="submit" value="Confirmar" class="float-end btn btn-primary"/>                                                                
+                                                                    <input id="Submit_NewPet" type="button" value="Confirmar" class="float-end btn btn-primary"/>                                                                
                                                                 </div> <!--end::Footer-->
                                                             </form> <!--end::Form--> <!--begin::JavaScript-->
                                                             
@@ -419,7 +435,7 @@
                                                                                     <img id="blah" src="#" alt="your image" class="img-size-64 me-2"/>
                                                                                 </div>
                                                                                 <div style="align-self: center;">
-                                                                                    <input accept="image/*" type='file' class="form-control" id="imgInp" />
+                                                                                    <input class="form-control" type="file" id="imgInp">
                                                                                 </div>
                                                                             </div>
                                                                         </div> <!--end::Col-->
@@ -433,7 +449,7 @@
                                                                 </div> <!--end::Body-->
                                                                 <div class="card-footer">
                                                                     <button style="margin-left: 10px;" type="button" class="float-end btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                                                    <input type="submit" value="Confirmar" id="Edit_Pet_Submit" class="float-end btn btn-primary"/>                                                                
+                                                                    <input type="button" value="Confirmar" id="Edit_Pet_Submit" class="float-end btn btn-primary"/>                                                                
                                                                 </div> <!--end::Footer-->
                                                             </form> <!--end::Form--> <!--begin::JavaScript-->
                                                             
@@ -522,6 +538,7 @@
                                       </div>
                                     </div>
                                 </div>
+                                <!-- LIST Animais -->
                                 <div class="col-lg-12">     
                                     <div class="card">
                                         <div class="card-header border-0">
@@ -712,11 +729,6 @@
                                                     </ul>
                                                 </nav>
                                             </div>
-                                            <div style="position: absolute; right: 0px; margin-right: 20px;">
-                                                <a style="width: 100%;" data-bs-toggle='modal' id='NovoPetButton' data-bs-target='#novoPet'  href="#" class="btn btn-sm btn-primary float-start">
-                                                    Adicionar Novo PET
-                                                </a> 
-                                            </div>
                                         </div>
                                     </div>
                                     
@@ -740,9 +752,6 @@
     <script src="../../js/reports.js"></script>
     <script src="../../js/index.js"></script>
     <script src="../../js/main.js"></script>
-    <script>
-        
-    </script>
 </body>
 
 </html>

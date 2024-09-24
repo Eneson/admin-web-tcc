@@ -20,11 +20,16 @@ const Delete_User = (item) => {
     })
 }
 //LISTAR USUÁRIOS DO BANCO DE DADOS
-function Get_all_users() {
+function Get_all_users(page) {
     return new Promise((resolve, reject) => {
-        api.get('user')
+        api.get('user', {
+            params: {
+                page
+            }  
+        })
             .then(response => {
-                resolve(response.data)       
+                const Total_count = response.headers['x-total-count']
+                resolve({ 'data' :response.data, 'Total_count': Total_count })      
             })  
             .catch(error => { reject(new Error('Não foi possível recuperar a lista de Usuários')) })
     })
@@ -54,10 +59,13 @@ function New_User(form_data){
             }, 
         })
         .then(response => {
+            console.log('response')
+            console.log(response)
             resolve(response.data)       
         })  
         .catch(error => { 
-            reject(new Error('Não foi possível Criar o Usuários'))
+            console.log(error.response.data.error)
+            reject(new Error('Não foi possível Criar o Usuários:\n' + error.response.data.error))
         })
     }) 
 }

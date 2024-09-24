@@ -24,6 +24,8 @@ function Get_all_pets(page) {
         })
         .then(response => {
             const Total_count = response.headers['x-total-count']
+            console.log('total count pets')
+            console.log(Total_count)
             resolve({ 'data' :response.data, 'Total_count': Total_count })       
         })  
         .catch(error => {             

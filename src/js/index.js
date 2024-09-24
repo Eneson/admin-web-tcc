@@ -325,96 +325,155 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
         
         render_all_pets(1)
 
-        Get_all_users()
-            .then((res) => {
-                //Renderiza o contador de usuarios
-                if(res != undefined){
-                    document.getElementById("count_users").innerHTML = res.length
-                }else{
+        let page_users = 1
+        function render_all_users(page_users){
+            Get_all_users(page_users)
+                .then((res) => {
+                    document.getElementById("user_list").innerHTML = ''
+
+                    const {data, Total_count} = res
+
+                    if(data.length == 0){
+                        document.getElementById('pagination').style.display = "none";
+                        return
+                    }
                     
-                    document.getElementById("count_users").innerHTML = 0
-                }
-                
-                document.getElementById("user_list").innerHTML = '' 
-                if(res.length != 0){
-                    res.forEach((item, indice) => {
-                        const node = document.createElement("tr");
-                        node.setAttribute("id", "user"+item.id_user);
-                        
-                        var admin = item.admin
-                        switch (admin) {
-                            case 0:
-                                admin = 'Não'
-                                break;
-                            case 1:                                
-                                admin = 'Sim'
-                                break;
-                            default:
-                                break;
+                    const Page_list = document.getElementById("page_users_1")
+                    
+                    for (let index = 0,page_users = 1; index < Total_count; index+=5, page_users++) {
+                        if(!Page_list){                    
+                            const node = document.createElement("li");
+                            node.setAttribute("id", "page_users_"+page_users);     
+                            node.innerHTML = '<a id=id_pageUser_'+page_users+' onClick=render_all_users('+page_users+') class="page-link" href="#">'+page_users+'</a>'
+                            document.getElementById("pagination_users").appendChild(node);
+                            //<li class="page-item">  </a> </li>
+                            
                         }
-                        node.innerHTML = '<td>'+ item.id_user +'</td> <td>'+ item.nome +'</td> <td>'+item.email +"</td><td>"+item.telefone +"</td><td>"+admin+"</td> <td> <div class='btn-group'> <a type='button' data-bs-toggle='dropdown' aria-expanded='false'> <i style='font-size: 2em;' class='text-secondary bi bi-person-fill-gear'></i></a> <ul class='dropdown-menu'> <li></li> <li> <a data-bs-toggle='modal' id='EditButton_"+item.id_user+"' data-bs-target='#staticBackdrop' class='dropdown-item' href='#'>Editar</a> </li> <li> <hr class='dropdown-divider'></li><li> <a id='DeleteButton_"+item.id_user+"' class='dropdown-item btn btn-danger' href='#''>Deletar</a></li></ul></div></td>"
-                        
-                        document.getElementById("user_list").appendChild(node);
+                        document.getElementById("page_users_"+page_users).setAttribute("class", "")
+                    }
 
-                        var User_DeleteButton = document.getElementById("DeleteButton_"+item.id_user)                
-                        User_DeleteButton.addEventListener(
-                            "click", 
-                            function(){
-                                let text = "Tem certeza que seja apagar o usuário?\nEssa ação não tem volta";
-                                if (confirm(text) == true) {  
-                                    ShowLoading(true)                  
-                                    Delete_User(item).catch(() => {
-                                        let text = "ERROR Ao apagar usuário.\nUsuário não apagado";
-                                        if (confirm(text) == true) { 
-                                        }
-                                    })
-                                    location.reload()
-                                } 
-                            }
-                        );  
+                    
+                    if(!Page_list){                
+                        const node4 = document.createElement('li');
+                        node4.setAttribute("id", "page_NextPage_users");   
+                        node4.innerHTML = '<a id="NextPage_users" class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">»</span>'
+                        document.getElementById("pagination_users").appendChild(node4);
+                    }
+                    
+                    //PreviousPage
+                    let PreviousPage = page_users-1
+                    NextPage = page_users+1   
+                    
+                    document.getElementById("PreviousPage_user").setAttribute("onClick", "render_all_users("+PreviousPage+")");
+                    document.getElementById("NextPage_users").setAttribute("onClick", "render_all_pets("+NextPage+")");
+                    
+                    document.getElementById("page_users_"+page_users).setAttribute("class", "active")
                         
-                        var User_EditButton = document.getElementById("EditButton_"+item.id_user)                
-                        User_EditButton.addEventListener(
-                            "click", 
-                            function(){
-                                document.getElementById("id_user").value = item.id_user
-                                document.getElementById("Edit_InputName").value = item.nome
-                                document.getElementById("Edit_InputEmail").value = item.email
-                                document.getElementById("Edit_InputFone").value = item.telefone
-                            }
-                        ); 
-                        
-                        const User_Options = document.createElement("option");
-                        User_Options.setAttribute("id", "user"+item.id_user);
-                        User_Options.setAttribute("value", item.id_user);
-                        User_Options.innerHTML = item.nome
+                    
+                    
+                    if(Math.ceil(Total_count/5) == page_users){
+                        document.getElementById("page_NextPage_users").setAttribute("class", "disabled");
+                    }else{
+                        document.getElementById("page_NextPage_users").setAttribute("class", "");
+                    }
+                    if(page_users == 1){
+                        //disabled
+                        document.getElementById("page_PreviousPage_users").setAttribute("class", "disabled");
+                    }else{
+                       
+                        document.getElementById("page_PreviousPage_users").setAttribute("class", "");
+                    }
 
-                        const User_Options2 = document.createElement("option");
-                        User_Options2.setAttribute("id", "user"+item.id_user);
-                        User_Options2.setAttribute("value", item.id_user);
-                        User_Options2.innerHTML = item.nome
+                    //Renderiza o contador de usuarios
+                    if(data != undefined){
+                        document.getElementById("count_users").innerHTML = Total_count
+                    }else{
                         
-                        document.getElementById("New_Dono_Select").appendChild(User_Options2);
-                        document.getElementById("Edit_Dono_Select").appendChild(User_Options);
-                    });
-                }
-                else{
+                        document.getElementById("count_users").innerHTML = 0
+                    }
+                    
+                    document.getElementById("user_list").innerHTML = '' 
+                    if(data.length != 0){
+                        data.forEach((item, indice) => {
+                            const node = document.createElement("tr");
+                            node.setAttribute("id", "user"+item.id_user);
+                            
+                            var admin = item.admin
+                            switch (admin) {
+                                case 0:
+                                    admin = 'Não'
+                                    break;
+                                case 1:                                
+                                    admin = 'Sim'
+                                    break;
+                                default:
+                                    break;
+                            }
+                            node.innerHTML = '<td>'+ item.id_user +'</td> <td>'+ item.nome +'</td> <td>'+item.email +"</td><td>"+item.telefone +"</td><td>"+admin+"</td> <td> <div class='btn-group'> <a type='button' data-bs-toggle='dropdown' aria-expanded='false'> <i style='font-size: 2em;' class='text-secondary bi bi-person-fill-gear'></i></a> <ul class='dropdown-menu'> <li></li> <li> <a data-bs-toggle='modal' id='EditButton_"+item.id_user+"' data-bs-target='#staticBackdrop' class='dropdown-item' href='#'>Editar</a> </li> <li> <hr class='dropdown-divider'></li><li> <a id='DeleteButton_"+item.id_user+"' class='dropdown-item btn btn-danger' href='#''>Deletar</a></li></ul></div></td>"
+                            
+                            document.getElementById("user_list").appendChild(node);
+    
+                            var User_DeleteButton = document.getElementById("DeleteButton_"+item.id_user)                
+                            User_DeleteButton.addEventListener(
+                                "click", 
+                                function(){
+                                    let text = "Tem certeza que seja apagar o usuário?\nEssa ação não tem volta";
+                                    if (confirm(text) == true) {  
+                                        ShowLoading(true)                  
+                                        Delete_User(item).catch(() => {
+                                            let text = "ERROR Ao apagar usuário.\nUsuário não apagado";
+                                            if (confirm(text) == true) { 
+                                            }
+                                        })
+                                        location.reload()
+                                    } 
+                                }
+                            );  
+                            
+                            var User_EditButton = document.getElementById("EditButton_"+item.id_user)                
+                            User_EditButton.addEventListener(
+                                "click", 
+                                function(){
+                                    document.getElementById("id_user").value = item.id_user
+                                    document.getElementById("Edit_InputName").value = item.nome
+                                    document.getElementById("Edit_InputEmail").value = item.email
+                                    document.getElementById("Edit_InputFone").value = item.telefone
+                                }
+                            ); 
+                            
+                            const User_Options = document.createElement("option");
+                            User_Options.setAttribute("id", "user"+item.id_user);
+                            User_Options.setAttribute("value", item.id_user);
+                            User_Options.innerHTML = item.nome
+    
+                            const User_Options2 = document.createElement("option");
+                            User_Options2.setAttribute("id", "user"+item.id_user);
+                            User_Options2.setAttribute("value", item.id_user);
+                            User_Options2.innerHTML = item.nome
+                            
+                            document.getElementById("New_Dono_Select").appendChild(User_Options2);
+                            document.getElementById("Edit_Dono_Select").appendChild(User_Options);
+                        });
+                    }
+                    else{
+                        const node = document.createElement("tr");
+                        node.innerHTML = "<td>0 Usuário Encontrado</td><td></td><td></td><td></td><td></td>"                
+                        document.getElementById("user_list").appendChild(node);           
+                            
+                    }
+                })
+                .catch((err) => {
+                    document.getElementById("user_list").innerHTML = '' 
                     const node = document.createElement("tr");
-                    node.innerHTML = "<td>0 Usuário Encontrado</td><td></td><td></td><td></td><td></td>"                
-                    document.getElementById("user_list").appendChild(node);           
-                        
-                }
-            })
-            .catch((err) => {
-                document.getElementById("user_list").innerHTML = '' 
-                const node = document.createElement("tr");
-                node.innerHTML = "<td>"+err+"<td><td></td><td></td><td></td><td></td>"                
-                document.getElementById("user_list").appendChild(node);    
-            })
+                    node.innerHTML = "<td>"+err+"<td><td></td><td></td><td></td><td></td>"                
+                    document.getElementById("user_list").appendChild(node);    
+                })
+        }
+        render_all_users(1)
         
         //Ligar FORMULARIO DE EDITAR USUÁRIO HTML Form com evento do botão e enviar para a funçao de enviar o form para o backend
-        const Form_edit_user = document.querySelector("#Form_edit_user");
-        Form_edit_user.addEventListener("submit", (event) => {
+        const Form_edit_user = document.querySelector("#Submit_EditUser");
+        Form_edit_user.addEventListener("click", (event) => {
             ShowLoading(true)
             event.preventDefault();
             Send_form_User(event);
@@ -422,8 +481,8 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
         });
 
         //Ligar FORMULARIO DE NOVO USUÁRIO HTML Form com evento do botão e enviar para a funçao de enviar o form para o backend
-        const Form_new_user = document.querySelector("#Form_new_user");
-        Form_new_user.addEventListener("submit", (event) => {
+        const Form_new_user = document.querySelector("#new_admin_submit");
+        Form_new_user.addEventListener("click", (event) => {
             ShowLoading(true)
             event.preventDefault();
             Send_form_NewUser();
@@ -431,17 +490,20 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
         });
         
         //Ligar FORMULARIO DE NOVO PET HTML Form com evento do botão e enviar para a funçao de enviar o form para o backend
-        const Form_new_pet = document.querySelector("#Form_new_pet");
-        Form_new_pet.addEventListener("submit", (event) => {
+        const Form_new_pet = document.querySelector("#Submit_NewPet");
+        const Form_pet = document.querySelector("#Form_new_pet");
+        Form_new_pet.addEventListener("click", (event) => {
             ShowLoading(true)
             event.preventDefault();
-            const selectedFile = Form_new_pet.elements.New_FotoFile.files[0];
+            const selectedFile = Form_pet.elements.New_FotoFile.files[0];
             Send_form_NewPet(selectedFile);
         });
 
         //Ligar FORMULARIO DE EDITAR PET HTML Form com evento do botão e enviar para a funçao de enviar o form para o backend
+        const Edit_Pet_Submit = document.querySelector("#Edit_Pet_Submit");
         const Form_edit_pet = document.querySelector("#Form_edit_pet");
-        Form_edit_pet.addEventListener("submit", (event) => {
+
+        Edit_Pet_Submit.addEventListener("click", (event) => {
             ShowLoading(true)
             event.preventDefault();
             const selectedFile = Form_edit_pet.elements.imgInp.files[0];
@@ -450,7 +512,7 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
         
         //ENVIAR DADOS DO FORMULÁRIO FRONTEND PARA A FUNÇÃO DE NOVO PET EM PETS.JS
         async function Send_form_EditPet(file) {
-            const form_data = new FormData(Form_new_pet);            
+            const form_data = new FormData(Form_edit_pet);            
             const Edit_Pet_Name = document.getElementById('Edit_Pet_Name').value
             const Edit_Pet_Id = document.getElementById('Edit_Pet_Id').value
             const Edit_Dono_Select = document.getElementById('Edit_Dono_Select').value
@@ -580,7 +642,7 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
         
         //ENVIAR DADOS DO FORMULÁRIO FRONTEND PARA A FUNÇÃO DE NOVO PET EM PETS.JS
         async function Send_form_NewPet(file) {
-            const form_data = new FormData(Form_new_pet);            
+            const form_data = new FormData(Form_pet);            
             const New_Pet_Name = document.getElementById('New_Pet_Name').value
             const New_Dono_Select = document.getElementById('New_Dono_Select').value
             const New_Tipo = document.querySelector('input[name="New_Tipo"]:checked').value;
@@ -637,7 +699,8 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
             form_data.append('FotoName', filename);
             form_data.append('Descricao', New_Desc);
 
-            New_Pet(form_data).then(() => {
+            New_Pet(form_data)
+            .then(() => {
                 alert("Adicionado com sucesso!");
             }).catch(err => {                
                 alert(err);
