@@ -420,12 +420,18 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
                                     let text = "Tem certeza que seja apagar o usuário?\nEssa ação não tem volta";
                                     if (confirm(text) == true) {  
                                         ShowLoading(true)                  
-                                        Delete_User(item).catch(() => {
-                                            let text = "ERROR Ao apagar usuário.\nUsuário não apagado";
+                                        Delete_User(item).then(() => {
+                                            let text = "Usuário apagado com sucesso";
                                             if (confirm(text) == true) { 
+                                                location.reload()
                                             }
                                         })
-                                        location.reload()
+                                        .catch(() => {
+                                            let text = "ERROR Ao apagar usuário.\nUsuário não apagado";
+                                            if (confirm(text) == true) { 
+                                                location.reload()
+                                            }
+                                        })
                                     } 
                                 }
                             );  

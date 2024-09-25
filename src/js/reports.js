@@ -1,4 +1,6 @@
 //LISTAR Reports DO BANCO DE DADOS
+var token = localStorage.getItem('token')
+
 function Get_Count_Reports(animal_id) {
     return api.get('report/'+animal_id)
         .then(response => {
@@ -27,7 +29,7 @@ function Delete_report(item){
         api.delete('report/'+item.reports_id, 
             {
                 headers: {
-                    authorization: "Beare Admin", 
+                    authorization: "Admin "+token, 
                 }
             }
         )

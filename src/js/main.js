@@ -22,5 +22,4 @@ function Logout() {
     localStorage.removeItem("acesso");
     localStorage.removeItem("token");
     window.location.href = '../pages/login.html'
-
 }

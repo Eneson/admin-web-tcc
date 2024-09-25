@@ -1,18 +1,19 @@
 //DELETAR USUÁRIO DO BANCO DE DADOS
+
+var token = localStorage.getItem('token')
+
 const Delete_User = (item) => { 
     return new Promise((resolve, reject) => { 
         api.delete('user/'+item.telefone, {
             headers: {
-                authorization: "Beare Admin", 
+                authorization: "Admin "+token, 
             },
             data: item
         })
         .then(res => {
-            console.log(res)
             resolve()
         })
         .catch(error => { 
-            console.log(error)
             reject(new Error('Não foi possível apagar o Usuário')) 
         })
         
@@ -39,7 +40,8 @@ function update_User(form_data){
     return new Promise((resolve, reject) => {
         api.post('user/update', form_data, {
             headers: { 
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: "Admin "+token,
             },
         })
         .then(response => {
@@ -55,7 +57,8 @@ function New_User(form_data){
     return new Promise((resolve, reject) => {
         api.post('user', form_data, {
             headers: { 
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: "Admin "+token,
             }, 
         })
         .then(response => {

@@ -1,10 +1,12 @@
 // //DELETAR USUÁRIO DO BANCO DE DADOS
+var token = localStorage.getItem('token')
+
 function Delete_Pet(item){ 
     return new Promise((resolve, reject) => {
         api.delete('animal/'+item.id, 
             {
                 headers: {
-                    authorization: "Beare Admin", 
+                    authorization: "Admin "+token, 
                 }
             }
         )
@@ -40,7 +42,7 @@ function Edit_Pet(data){
         api.post('animal/update', data, {
             headers: { 
                 'Content-Type': 'multipart/form-data',
-                authorization: "Beare Admin", 
+                authorization: "Admin "+token, 
             }, 
         })
         .then(response => {
@@ -57,7 +59,7 @@ function New_Pet(form_data){
         api.post('animal',form_data,{
             headers: { 
                 'Content-Type': 'multipart/form-data',
-                authorization: "Beare Admin", 
+                authorization: "Admin "+token,  
             }
         })
         .then(response => {
