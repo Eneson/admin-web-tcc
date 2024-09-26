@@ -62,12 +62,9 @@ function New_User(form_data){
             }, 
         })
         .then(response => {
-            console.log('response')
-            console.log(response)
             resolve(response.data)       
         })  
         .catch(error => { 
-            console.log(error.response.data.error)
             reject(new Error('Não foi possível Criar o Usuários:\n' + error.response.data.error))
         })
     }) 

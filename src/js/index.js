@@ -28,10 +28,9 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
         var page_reports = 1;
         function render_all_reports(page_reports){
             Get_All_Reports(page_reports).then((data) => {
-                console.log(page_reports)
                 document.getElementById("reports_list").innerHTML = '';
     
-                if(data.length == 0){
+                if(data.Total_count == 0){
                     document.getElementById('pagination_report').style.display = "none";
                     return
                 }
@@ -84,7 +83,6 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
                 }else{                
                     document.getElementById("count_reports").innerHTML = 0
                 }
-                console.log(data.data)
                 if(data.data.length != 0){
                     data.data.forEach(async (item, indice) => {                    
                         const node = document.createElement("tr");
@@ -140,7 +138,7 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
 
                     if(data.length == 0){
                         document.getElementById('pagination').style.display = "none";
-                        return
+                        return;
                     }
                     
                     const Page_list = document.getElementById("page_1")
@@ -444,6 +442,12 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
                                     document.getElementById("Edit_InputName").value = item.nome
                                     document.getElementById("Edit_InputEmail").value = item.email
                                     document.getElementById("Edit_InputFone").value = item.telefone
+                                    var admin_check = item.admin
+                                    if(admin_check == 1){
+                                        document.getElementById("Edit_check_adm").checked = true
+                                    }else{
+                                        document.getElementById("Edit_check_adm").checked = false
+                                    }
                                 }
                             ); 
                             
@@ -596,12 +600,24 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
             const id_user = document.getElementById('id_user').value
             const InputEmail = document.getElementById('Edit_InputEmail').value
             const InputFone = document.getElementById('Edit_InputFone').value
+            var Edit_check_adm = $('#Editi_check_adm').is(':checked')
+
+            switch ($('#Edit_check_adm').is(':checked')) {
+                case false:                                    
+                    Edit_check_adm = 0
+                    break;
+                case true:                                    
+                    Edit_check_adm = 1  
+                    break;
+            }  
+
             
             const data = {
                 'nome': InputName,
                 'email': InputEmail,
                 'telefone': InputFone,
                 'id_user': id_user,
+                'admin': Edit_check_adm,
             }
             
             update_User(data).then((res) => {                
@@ -632,7 +648,6 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
                     New_check_adm = 1  
                     break;
             }  
-            console.log(New_check_adm)
             form_data.append('nome', InputName);
             form_data.append('email', InputEmail);
             form_data.append('telefone', InputFone);

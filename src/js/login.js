@@ -13,8 +13,6 @@ function login(form_data){
                 'authorization': token
                 }}).then((res) => {
                 if(res.data.admin == 1){
-                    console.log('res.config.headers.authorization')
-                    console.log(res.config.headers.authorization)
                     resolve({
                         'token': res.config.headers.authorization,
                         'status': res.status
@@ -25,7 +23,6 @@ function login(form_data){
             })
         })  
         .catch(error => { 
-            console.log(error)
             reject(new Error(error))
         })
     })

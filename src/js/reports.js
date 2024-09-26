@@ -4,7 +4,6 @@ var token = localStorage.getItem('token')
 function Get_Count_Reports(animal_id) {
     return api.get('report/'+animal_id)
         .then(response => {
-            console.log('response')
             return response.data            
         })  
         .catch(error => { return error })
