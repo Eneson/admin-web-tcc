@@ -2,7 +2,8 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
 
         function ShowLoading(show){
             var div1 = document.getElementById("loading1");
-            var div2 = document.getElementById("loading2");                
+            var div2 = document.getElementById("loading2");   
+            console.log(show)             
                 
             if(show == true) {
                 div1.style.display = "flex";
@@ -654,11 +655,17 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
             form_data.append('senha', InputSenha);
             form_data.append('admin', New_check_adm);
 
-            ShowLoading(false)
 
-           New_User(form_data)
-           .then(() => { alert("Adicionado com sucesso!")})
-           .catch((err)=>{ alert(err)})         
+            New_User(form_data)
+                .then(() => { 
+                    alert("Adicionado com sucesso!")
+                })
+                .catch((err)=>{
+                    alert(err)
+                })
+                .finally(() => {
+                    ShowLoading(false)
+                })   
         }
         
         //ENVIAR DADOS DO FORMULÁRIO FRONTEND PARA A FUNÇÃO DE NOVO PET EM PETS.JS
