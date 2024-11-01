@@ -17,14 +17,18 @@ function Delete_Pet(item){
     })        
 }
 // //LISTAR USUÁRIOS DO BANCO DE DADOS
-function Get_all_pets(page) {
+function Get_all_pets(page, adotado) {
+    console.log(page, adotado)
     return new Promise((resolve, reject) => {
         api.get('animal', {
             params: {
-                page
+                page,
+                origem: 'web',
+                adotado: adotado
             }  
         })
         .then(response => {
+            console.log(response.data)
             const Total_count = response.headers['x-total-count']
             resolve({ 'data' :response.data, 'Total_count': Total_count })       
         })  
@@ -34,7 +38,7 @@ function Get_all_pets(page) {
     })
     
 }
-// //ATUALIZAR USUÁRIO DO BANCO DE DADOS
+// //ATUALIZAR ANIMAL DO BANCO DE DADOS
 function Edit_Pet(data){
     return new Promise((resolve, reject) => {
         api.post('animal/update', data, {
@@ -50,6 +54,7 @@ function Edit_Pet(data){
             
     })
 }
+
 
 //ADICIONAR Pet AO BANCO DE DADOS
 function New_Pet(form_data){

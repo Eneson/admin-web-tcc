@@ -1,5 +1,205 @@
-$("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")    
+$("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")  
+var petslist = []  
+let page_adotado = 1
+function render_all_adotado(page_adotado) {
+    Get_all_pets(page_adotado,1)
+        .then((res) => {
+            res.data = res.data.filter(animal => animal.Adotado != '0');
+            document.getElementById("adotado_list").innerHTML = ''
 
+                    const {data, Total_count} = res
+                    if(data != undefined){
+                        document.getElementById("count_adotado").innerHTML = Total_count                
+                    }else{                
+                        document.getElementById("count_adotado").innerHTML = 0
+                    }
+
+                    if(data.length == 0){
+                        document.getElementById('pagination_adotado').style.display = "none";
+                        return;
+                    }
+                    
+                    const Page_list = document.getElementById("page_adotado_1")
+                    
+                    for (let index = 0,page_adotado = 1; index < Total_count; index+=6, page_adotado++) {
+                        if(!Page_list){                    
+                            const node = document.createElement("li");
+                            node.setAttribute("id", "page_adotado_"+page_adotado);     
+                            node.innerHTML = '<a id=id_page_adotado_'+page_adotado+' onClick=render_all_adotado('+page_adotado+') class="page-link" href="#">'+page_adotado+'</a>'
+                            document.getElementById("pagination_adotado").appendChild(node);
+                            //<li class="page-item">  </a> </li>
+                            
+                        }
+                        document.getElementById("page_adotado_"+page_adotado).setAttribute("class", "")
+                    }
+
+                    
+                    if(!Page_list){                 
+                        const node4 = document.createElement('li');
+                        node4.setAttribute("id", "page_NextPage_adotado");   
+                        node4.innerHTML = '<a id="NextPage_adotado" class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">»</span>'
+                        document.getElementById("pagination_adotado").appendChild(node4);
+                    }
+                    
+                    //PreviousPage
+                    let PreviousPage = page_adotado-1
+                    NextPage = page_adotado+1   
+                    
+                    document.getElementById("PreviousPage_adotado").setAttribute("onClick", "render_all_adotado("+PreviousPage+",1)");
+                    document.getElementById("NextPage_adotado").setAttribute("onClick", "render_all_adotado("+NextPage+",1)");
+                    
+                    document.getElementById("page_adotado_"+page_adotado).setAttribute("class", "active")
+                        
+                    
+                    
+                    if(Math.ceil(Total_count/6) == page_adotado){
+                        document.getElementById("page_NextPage_adotado").setAttribute("class", "disabled");
+                    }else{
+                        document.getElementById("page_NextPage_adotado").setAttribute("class", "");
+
+                    }
+                    if(page_adotado == 1){
+                        //disabled
+                        document.getElementById("page_PreviousPage_adotado").setAttribute("class", "disabled");
+                    }else{
+                       
+                        document.getElementById("page_PreviousPage_adotado").setAttribute("class", "");
+                    }
+                            
+
+                    if(data.length != 0){
+                        data.forEach(async (item, indice) => {                    
+                            const node = document.createElement("tr");
+                            node.setAttribute("id", "user"+item.id);                    
+                            const foto = item.FotoName.replaceAll(" ", "_");              
+                            var report = await Get_Count_Reports(item.id)
+                            
+                            node.innerHTML = '<td>'+ item.id +'</td> <td> <img src="https://ik.imagekit.io/adote/'+foto+'" alt="Product 1" class="rounded-circle img-size-32 me-2"> '+item.Nome+'</td><td>'+item.nome+'</td><td>'+report+'</td><td> <div class="btn-group"> <a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i style="font-size: 1.5em;" class="text-secondary bi bi-gear-fill"></i></a><ul class="dropdown-menu"><li><a class="dropdown-item" data-bs-toggle="modal" id="viewPetButton'+item.id+'" data-bs-target="#viewPet"  href="#" class="btn btn-sm btn-primary float-start">Visualizar</a></li><li> <a data-bs-toggle="modal" id="editPetButton'+item.id+'" data-bs-target="#editarPet"  href="#" class="dropdown-item" href="#">Editar</a> </li><li><hr class="dropdown-divider"></li><li> <a id="DeleteButtonPet'+item.id+'" class="dropdown-item btn btn-danger" href="#">Deletar</a> </li></ul></div>  </td>'
+                            
+                            document.getElementById("adotado_list").appendChild(node);
+
+                            //Vizualizar pet
+                            var viewPetButton = document.getElementById("viewPetButton"+item.id)         
+                            viewPetButton.addEventListener(
+                                "click", 
+                                function(){
+                                    //petDonoModal
+                                    document.getElementById('petNomeModal').innerHTML = item.Nome  
+                                    document.getElementById('petDonoModal').innerHTML = item.nome  
+                                    document.getElementById('petIdModal').innerHTML = item.id  
+                                    document.getElementById('petTipoModal').innerHTML = item.Tipo   
+                                    document.getElementById('petNascModal').innerHTML = item.DataNasc    
+                                    document.getElementById('petSexoModal').innerHTML = item.Sexo    
+                                    switch (item.Vacina) {
+                                        case 0:                                    
+                                            document.getElementById('petVacinadoModal').innerHTML = 'Não'  
+                                            break;
+                                        case 1:                                    
+                                            document.getElementById('petVacinadoModal').innerHTML = 'Sim'  
+                                            break;
+                                    }  
+                                    switch (item.Castrado) {
+                                        case 0:                                    
+                                            document.getElementById('petCastradoModal').innerHTML = 'Não'  
+                                            break;
+                                        case 1:                                    
+                                            document.getElementById('petCastradoModal').innerHTML = 'Sim'  
+                                            break;
+                                    }
+                                    switch (item.Vermifugado) {
+                                        case 0:                                    
+                                            document.getElementById('petVermifugadoModal').innerHTML = 'Não'  
+                                            break;
+                                        case 1:                                    
+                                            document.getElementById('petVermifugadoModal').innerHTML = 'Sim'  
+                                            break;
+                                    }
+                                    document.getElementById('petDescModal').innerHTML = item.Descricao
+                                    document.getElementById('petImgModal').src = 'https://ik.imagekit.io/adote/'+foto+''
+                                }   
+                            );  
+                            
+                            // editar pet
+                            var editPetButton = document.getElementById("editPetButton"+item.id)         
+                            editPetButton.addEventListener(
+                                "click", 
+                                function(){
+                                    document.getElementById('Edit_Pet_Name').value = item.Nome
+                                    document.getElementById('Edit_Dono_Select_atual').innerHTML = item.nome
+                                    document.getElementById('Edit_Dono_Select_atual').value = item.id_user
+                                    document.getElementById('Edit_Pet_Id').value = item.id
+
+                                    document.getElementById('Edit_Pet_Submit').setAttribute('idi', item.id)
+
+                                    if(item.Sexo == 'Macho'){
+                                        document.getElementById('Edit_Macho').checked = true;
+                                    }else{
+                                        document.getElementById('Edit_Femea').checked = true;
+                                    }
+                                    if(item.Tipo == 'Cão'){
+                                        document.getElementById('Edit_Cao').checked = true;
+                                    }else{
+                                        document.getElementById('Edit_Gato').checked = true;
+                                    }
+
+                                    document.getElementById('blah').src = 'https://ik.imagekit.io/adote/'+foto
+                                    
+                                    document.getElementById('Edit_Data_nasc').value = item.DataNasc
+                                    if(item.Vacina == 1){
+                                        document.getElementById('Edit_Vacinado').checked = true
+                                    }
+                                    if(item.Vermifugado == 1){
+                                        document.getElementById('Edit_Vermifugado').checked = true
+                                    }
+                                    if(item.Castrado == 1){
+                                        document.getElementById('Edit_Castrado').checked = true
+                                    }
+                                    if(item.Adotado == 1){
+                                        document.getElementById('Edit_Adotado').checked = true
+                                    }
+
+                                    document.getElementById('New_Data_nasc').value
+                                    document.getElementById('imgInp').value
+                                    document.getElementById('Edit_Desc').value                        
+                                }
+                            );  
+                            
+                            //Deletar pet
+                            var DeleteButtonPet = document.getElementById("DeleteButtonPet"+item.id)         
+                            DeleteButtonPet.addEventListener(
+                                "click", 
+                                function(){
+                                    let text = "Tem certeza que seja apagar o pet?\nEssa ação não tem volta";
+                                    if (confirm(text) == true) {       
+                                        ShowLoading(true)                    
+                                        Delete_Pet(item).then(() => {
+                                            alert("Removido com sucesso!");
+                                        }).catch(err => {                
+                                            alert(err);
+                                        }).finally(() => {
+                                            location.reload()
+                                        })
+                                    } 
+                                }
+                            );  
+                            
+                        });
+                    }
+                    else{
+                    document.getElementById("adotado_list").innerHTML = ''  
+                    const node = document.createElement("tr");
+                    node.innerHTML = "<td>0 Animais Encontrado</td><td></td><td></td><td></td><td></td>"                
+                    document.getElementById("adotado_list").appendChild(node);  
+                }
+                })
+                .catch(error => { 
+                    document.getElementById("adotado_list").innerHTML = ''  
+                    const node = document.createElement("tr");
+                    node.innerHTML = "<td>"+error+"</td><td></td><td></td><td></td><td></td>"                
+                    document.getElementById("adotado_list").appendChild(node);  
+                })
+}
+render_all_adotado(1)
         function ShowLoading(show){
             var div1 = document.getElementById("loading1");
             var div2 = document.getElementById("loading2");   
@@ -126,13 +326,14 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
 
         let page = 1       
         function render_all_pets(page) {
-            Get_all_pets(page)
+            Get_all_pets(page,0 )
                 .then((res) => {
                     document.getElementById("pet_list").innerHTML = ''
 
+                    res.data = res.data.filter(animal => animal.Adotado == '0');
                     const {data, Total_count} = res
                     if(data != undefined){
-                        document.getElementById("count_pets").innerHTML = Total_count                
+                        document.getElementById("count_pets").innerHTML = Total_count             
                     }else{                
                         document.getElementById("count_pets").innerHTML = 0
                     }
@@ -144,13 +345,14 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
                     
                     const Page_list = document.getElementById("page_1")
                     
-                    for (let index = 0,page = 1; index < Total_count; index+=10, page++) {
+                    for (let index = 0,page = 1; index < Total_count; index+=6, page++) {
                         if(!Page_list){                    
                             const node = document.createElement("li");
                             node.setAttribute("id", "page_"+page);     
                             node.innerHTML = '<a id=id_page_'+page+' onClick=render_all_pets('+page+') class="page-link" href="#">'+page+'</a>'
                             document.getElementById("pagination").appendChild(node);
                             //<li class="page-item">  </a> </li>
+                        console.log('ssssssssssssssssss')
                             
                         }
                         document.getElementById("page_"+page).setAttribute("class", "")
@@ -175,7 +377,7 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
                         
                     
                     
-                    if(Math.ceil(Total_count/10) == page){
+                    if(Math.ceil(Total_count/6) == page){
                         document.getElementById("page_NextPage").setAttribute("class", "disabled");
                     }else{
                         document.getElementById("page_NextPage").setAttribute("class", "");
@@ -537,6 +739,7 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
             var Edit_Vacinado;
             var Edit_Vermifugado;
             var Edit_Castrado;
+            var Edit_Adotado;
 
             switch ($('#Edit_Vacinado').is(':checked')) {
                 case false:                                    
@@ -562,6 +765,15 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
                     Edit_Castrado = 1 
                     break;
             }
+
+            switch ($('#Edit_Adotado').is(':checked')) {
+                case false:                                    
+                    Edit_Adotado = 0  
+                    break;
+                case true:                                    
+                    Edit_Adotado = 1 
+                    break;
+            }
             
 
             const imgInp = document.getElementById('imgInp').value
@@ -584,6 +796,7 @@ $("#InputFone, #NewInputFone").mask("(00) 0 0000-0000")
             form_data.append('id_user', Edit_Dono_Select);
             form_data.append('Vermifugado', Edit_Vermifugado);
             form_data.append('Castrado', Edit_Castrado)  
+            form_data.append('Adotado', Edit_Adotado)  
             form_data.append('FotoName', filename);
             form_data.append('Descricao', Edit_Desc);
 
