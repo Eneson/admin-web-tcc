@@ -4,10 +4,14 @@ let page_adotado = 1
 function render_all_adotado(page_adotado) {
     Get_all_pets(page_adotado,1)
         .then((res) => {
+            
+
             res.data = res.data.filter(animal => animal.Adotado != '0');
             document.getElementById("adotado_list").innerHTML = ''
 
                     const {data, Total_count} = res
+            console.log('data')
+            console.log(data)
                     if(data != undefined){
                         document.getElementById("count_adotado").innerHTML = Total_count                
                     }else{                
@@ -65,59 +69,48 @@ function render_all_adotado(page_adotado) {
                        
                         document.getElementById("page_PreviousPage_adotado").setAttribute("class", "");
                     }
-                            
-
                     if(data.length != 0){
+                        
                         data.forEach(async (item, indice) => {                    
                             const node = document.createElement("tr");
-                            node.setAttribute("id", "user"+item.id);                    
-                            const foto = item.FotoName.replaceAll(" ", "_");              
+                            node.setAttribute("id", "user"+item.id);
+                            const fotoArray = JSON.parse(item.FotoName)            
+                            const foto = fotoArray[0].replaceAll(" ", "_");            
                             var report = await Get_Count_Reports(item.id)
                             
                             node.innerHTML = '<td>'+ item.id +'</td> <td> <img src="https://ik.imagekit.io/adote/'+foto+'" alt="Product 1" class="rounded-circle img-size-32 me-2"> '+item.Nome+'</td><td>'+item.nome+'</td><td>'+report+'</td><td> <div class="btn-group"> <a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i style="font-size: 1.5em;" class="text-secondary bi bi-gear-fill"></i></a><ul class="dropdown-menu"><li><a class="dropdown-item" data-bs-toggle="modal" id="viewPetButton'+item.id+'" data-bs-target="#viewPet"  href="#" class="btn btn-sm btn-primary float-start">Visualizar</a></li><li> <a data-bs-toggle="modal" id="editPetButton'+item.id+'" data-bs-target="#editarPet"  href="#" class="dropdown-item" href="#">Editar</a> </li><li><hr class="dropdown-divider"></li><li> <a id="DeleteButtonPet'+item.id+'" class="dropdown-item btn btn-danger" href="#">Deletar</a> </li></ul></div>  </td>'
                             
                             document.getElementById("adotado_list").appendChild(node);
 
-                            //Vizualizar pet
+                            // **Visualizar pet**
                             var viewPetButton = document.getElementById("viewPetButton"+item.id)         
-                            viewPetButton.addEventListener(
-                                "click", 
-                                function(){
-                                    //petDonoModal
-                                    document.getElementById('petNomeModal').innerHTML = item.Nome  
-                                    document.getElementById('petDonoModal').innerHTML = item.nome  
-                                    document.getElementById('petIdModal').innerHTML = item.id  
-                                    document.getElementById('petTipoModal').innerHTML = item.Tipo   
-                                    document.getElementById('petNascModal').innerHTML = item.DataNasc    
-                                    document.getElementById('petSexoModal').innerHTML = item.Sexo    
-                                    switch (item.Vacina) {
-                                        case 0:                                    
-                                            document.getElementById('petVacinadoModal').innerHTML = 'Não'  
-                                            break;
-                                        case 1:                                    
-                                            document.getElementById('petVacinadoModal').innerHTML = 'Sim'  
-                                            break;
-                                    }  
-                                    switch (item.Castrado) {
-                                        case 0:                                    
-                                            document.getElementById('petCastradoModal').innerHTML = 'Não'  
-                                            break;
-                                        case 1:                                    
-                                            document.getElementById('petCastradoModal').innerHTML = 'Sim'  
-                                            break;
-                                    }
-                                    switch (item.Vermifugado) {
-                                        case 0:                                    
-                                            document.getElementById('petVermifugadoModal').innerHTML = 'Não'  
-                                            break;
-                                        case 1:                                    
-                                            document.getElementById('petVermifugadoModal').innerHTML = 'Sim'  
-                                            break;
-                                    }
-                                    document.getElementById('petDescModal').innerHTML = item.Descricao
-                                    document.getElementById('petImgModal').src = 'https://ik.imagekit.io/adote/'+foto+''
-                                }   
-                            );  
+                            viewPetButton.addEventListener("click", function(){
+                                document.getElementById('petNomeModal').innerHTML = item.Nome  
+                                document.getElementById('petDonoModal').innerHTML = item.nome  
+                                document.getElementById('petIdModal').innerHTML = item.id  
+                                document.getElementById('petTipoModal').innerHTML = item.Tipo   
+                                document.getElementById('petNascModal').innerHTML = item.DataNasc    
+                                document.getElementById('petSexoModal').innerHTML = item.Sexo    
+                                document.getElementById('petVacinadoModal').innerHTML = item.Vacina == 1 ? 'Sim' : 'Não'
+                                document.getElementById('petCastradoModal').innerHTML = item.Castrado == 1 ? 'Sim' : 'Não'
+                                document.getElementById('petVermifugadoModal').innerHTML = item.Vermifugado == 1 ? 'Sim' : 'Não'
+                                document.getElementById('petDescModal').innerHTML = item.Descricao
+
+                                // **Carregar imagens no carrossel**
+                                let petImgContainer = document.getElementById('petImgContainer');
+                                petImgContainer.innerHTML = ''; // Limpar antes de adicionar
+                                
+                                fotoArray.forEach((foto, index) => {
+                                    console.log('fotoArray for each')
+                                    console.log(foto)
+                                    let activeClass = index === 0 ? 'active' : '';
+                                    petImgContainer.innerHTML += `
+                                        <div class="carousel-item ${activeClass}">
+                                            <img src="https://ik.imagekit.io/adote/${foto}" class="d-block w-100" style="max-width: 250px; margin: auto;">
+                                        </div>
+                                    `;
+                                });
+                            });  
                             
                             // editar pet
                             var editPetButton = document.getElementById("editPetButton"+item.id)         
@@ -352,7 +345,6 @@ render_all_adotado(1)
                             node.innerHTML = '<a id=id_page_'+page+' onClick=render_all_pets('+page+') class="page-link" href="#">'+page+'</a>'
                             document.getElementById("pagination").appendChild(node);
                             //<li class="page-item">  </a> </li>
-                        console.log('ssssssssssssssssss')
                             
                         }
                         document.getElementById("page_"+page).setAttribute("class", "")
@@ -395,54 +387,91 @@ render_all_adotado(1)
                     if(data.length != 0){
                         data.forEach(async (item, indice) => {                    
                             const node = document.createElement("tr");
-                            node.setAttribute("id", "user"+item.id);                    
-                            const foto = item.FotoName.replaceAll(" ", "_");              
+                            node.setAttribute("id", "user"+item.id);   
+                            const fotoArray = JSON.parse(item.FotoName)            
+                            const foto = fotoArray[0].replaceAll(" ", "_");              
                             var report = await Get_Count_Reports(item.id)
                             
                             node.innerHTML = '<td>'+ item.id +'</td> <td> <img src="https://ik.imagekit.io/adote/'+foto+'" alt="Product 1" class="rounded-circle img-size-32 me-2"> '+item.Nome+'</td><td>'+item.nome+'</td><td>'+report+'</td><td> <div class="btn-group"> <a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i style="font-size: 1.5em;" class="text-secondary bi bi-gear-fill"></i></a><ul class="dropdown-menu"><li><a class="dropdown-item" data-bs-toggle="modal" id="viewPetButton'+item.id+'" data-bs-target="#viewPet"  href="#" class="btn btn-sm btn-primary float-start">Visualizar</a></li><li> <a data-bs-toggle="modal" id="editPetButton'+item.id+'" data-bs-target="#editarPet"  href="#" class="dropdown-item" href="#">Editar</a> </li><li><hr class="dropdown-divider"></li><li> <a id="DeleteButtonPet'+item.id+'" class="dropdown-item btn btn-danger" href="#">Deletar</a> </li></ul></div>  </td>'
                             
                             document.getElementById("pet_list").appendChild(node);
-
-                            //Vizualizar pet
+ // **Visualizar pet**
                             var viewPetButton = document.getElementById("viewPetButton"+item.id)         
-                            viewPetButton.addEventListener(
-                                "click", 
-                                function(){
-                                    //petDonoModal
-                                    document.getElementById('petNomeModal').innerHTML = item.Nome  
-                                    document.getElementById('petDonoModal').innerHTML = item.nome  
-                                    document.getElementById('petIdModal').innerHTML = item.id  
-                                    document.getElementById('petTipoModal').innerHTML = item.Tipo   
-                                    document.getElementById('petNascModal').innerHTML = item.DataNasc    
-                                    document.getElementById('petSexoModal').innerHTML = item.Sexo    
-                                    switch (item.Vacina) {
-                                        case 0:                                    
-                                            document.getElementById('petVacinadoModal').innerHTML = 'Não'  
-                                            break;
-                                        case 1:                                    
-                                            document.getElementById('petVacinadoModal').innerHTML = 'Sim'  
-                                            break;
-                                    }  
-                                    switch (item.Castrado) {
-                                        case 0:                                    
-                                            document.getElementById('petCastradoModal').innerHTML = 'Não'  
-                                            break;
-                                        case 1:                                    
-                                            document.getElementById('petCastradoModal').innerHTML = 'Sim'  
-                                            break;
-                                    }
-                                    switch (item.Vermifugado) {
-                                        case 0:                                    
-                                            document.getElementById('petVermifugadoModal').innerHTML = 'Não'  
-                                            break;
-                                        case 1:                                    
-                                            document.getElementById('petVermifugadoModal').innerHTML = 'Sim'  
-                                            break;
-                                    }
-                                    document.getElementById('petDescModal').innerHTML = item.Descricao
-                                    document.getElementById('petImgModal').src = 'https://ik.imagekit.io/adote/'+foto+''
-                                }   
-                            );  
+                            viewPetButton.addEventListener("click", function(){
+                                document.getElementById('petNomeModal').innerHTML = item.Nome  
+                                document.getElementById('petDonoModal').innerHTML = item.nome  
+                                document.getElementById('petIdModal').innerHTML = item.id  
+                                document.getElementById('petTipoModal').innerHTML = item.Tipo   
+                                document.getElementById('petNascModal').innerHTML = item.DataNasc    
+                                document.getElementById('petSexoModal').innerHTML = item.Sexo    
+                                document.getElementById('petVacinadoModal').innerHTML = item.Vacina == 1 ? 'Sim' : 'Não'
+                                document.getElementById('petCastradoModal').innerHTML = item.Castrado == 1 ? 'Sim' : 'Não'
+                                document.getElementById('petVermifugadoModal').innerHTML = item.Vermifugado == 1 ? 'Sim' : 'Não'
+                                document.getElementById('petDescModal').innerHTML = item.Descricao
+
+                                // **Carregar imagens no carrossel**
+                                let petImgContainer = document.getElementById('petImgContainer');
+                                petImgContainer.innerHTML = ''; // Limpar antes de adicionar
+                                
+                                fotoArray.forEach((foto, index) => {
+                                    console.log('fotoArray for each')
+                                    console.log(foto)
+                                    let activeClass = index === 0 ? 'active' : '';
+                                    petImgContainer.innerHTML += `
+                                        <div class="carousel-item ${activeClass}">
+                                            <img src="https://ik.imagekit.io/adote/${foto}" class="d-block w-100" style="max-width: 250px; margin: auto;">
+                                        </div>
+                                    `;
+                                });
+                            });  
+                            
+                             // **Visualizar pet**
+                            var viewPetButton = document.getElementById("viewPetButton"+item.id);         
+                            viewPetButton.addEventListener("click", function(){
+                                document.getElementById('petNomeModal').innerHTML = item.Nome;
+                                document.getElementById('petDonoModal').innerHTML = item.nome;
+                                document.getElementById('petIdModal').innerHTML = item.id;
+                                document.getElementById('petTipoModal').innerHTML = item.Tipo;
+                                document.getElementById('petNascModal').innerHTML = item.DataNasc;
+                                document.getElementById('petSexoModal').innerHTML = item.Sexo;
+                                document.getElementById('petVacinadoModal').innerHTML = item.Vacina == 1 ? 'Sim' : 'Não';
+                                document.getElementById('petCastradoModal').innerHTML = item.Castrado == 1 ? 'Sim' : 'Não';
+                                document.getElementById('petVermifugadoModal').innerHTML = item.Vermifugado == 1 ? 'Sim' : 'Não';
+                                document.getElementById('petDescModal').innerHTML = item.Descricao;
+
+                                // **Carregar imagens no carrossel**
+                                let petImgContainer = document.getElementById('petImgContainer');
+                                let prevButton = document.querySelector('.carousel-control-prev');
+                                let nextButton = document.querySelector('.carousel-control-next');
+
+                                petImgContainer.innerHTML = ''; // Limpar antes de adicionar
+
+                                fotoArray.forEach((foto, index) => {
+                                    let activeClass = index === 0 ? 'active' : '';
+                                    petImgContainer.innerHTML += `
+                                        <div class="carousel-item ${activeClass}">
+                                            <img src="https://ik.imagekit.io/adote/${foto}" class="d-block w-100" style="max-width: 250px; margin: auto;">
+                                        </div>
+                                    `;
+                                });
+
+                                // **Função para verificar e ajustar os botões de navegação**
+                                function updateCarouselButtons() {
+                                    let activeIndex = [...petImgContainer.children].findIndex(item => item.classList.contains('active'));
+
+                                    prevButton.style.display = activeIndex === 0 ? 'none' : 'block';
+                                    nextButton.style.display = activeIndex === fotoArray.length - 1 ? 'none' : 'block';
+                                }
+
+                                // **Verifica os botões logo ao abrir o modal**
+                                updateCarouselButtons();
+
+                                // **Evento para atualizar botões ao mudar de slide**
+                                let carouselElement = document.getElementById('carouselPetImages');
+                                carouselElement.addEventListener('slid.bs.carousel', updateCarouselButtons);
+                            });
+
+                             
                             
                             // editar pet
                             var editPetButton = document.getElementById("editPetButton"+item.id)         
@@ -469,7 +498,19 @@ render_all_adotado(1)
 
                                     document.getElementById('blah').src = 'https://ik.imagekit.io/adote/'+foto
                                     
-                                    document.getElementById('Edit_Data_nasc').value = item.DataNasc
+                                    // Supondo que item.DataNasc seja no formato "14/8/2024"
+                                    function formatarData(data) {
+                                        let partes = data.split('/'); // Divide em ["14", "8", "2024"]
+                                        let dia = partes[0].padStart(2, '0'); // Garante que tenha dois dígitos (14)
+                                        let mes = partes[1].padStart(2, '0'); // Garante que tenha dois dígitos (08)
+                                        let ano = partes[2]; // Ano já está correto
+                                    
+                                        return `${ano}-${mes}-${dia}`; // Retorna no formato yyyy-MM-dd
+                                    }                                    
+                                    // Aplicando a conversão
+                                    document.getElementById('Edit_Data_nasc').value = formatarData(item.DataNasc);
+
+                                    document.getElementById('Edit_Desc').value = item.Descricao
                                     if(item.Vacina == 1){
                                         document.getElementById('Edit_Vacinado').checked = true
                                     }
@@ -734,7 +775,21 @@ render_all_adotado(1)
             const Edit_Tipo = document.querySelector('input[name="Edit_Tipo"]:checked').value;
             const Edit_Sexo = document.querySelector('input[name="Edit_Sexo"]:checked').value;
 
-            const Edit_Data_nasc = document.getElementById('Edit_Data_nasc').value
+            // Função para formatar a data no formato dd/MM/yyyy
+            function formatarDataParaExibicao(data) {
+                const partes = data.split('-'); // Divide em ["yyyy", "MM", "dd"]
+                const dia = partes[2]; // Pega o dia
+                const mes = partes[1]; // Pega o mês
+                const ano = partes[0]; // Pega o ano
+
+                return `${dia}/${mes}/${ano}`; // Retorna no formato dd/MM/yyyy
+            }
+
+            // Pegando o valor do campo de data
+            const Edit_Data_nasc_old = document.getElementById('Edit_Data_nasc').value;
+
+            // Convertendo para o formato desejado
+            const Edit_Data_nasc = formatarDataParaExibicao(Edit_Data_nasc_old);
 
             var Edit_Vacinado;
             var Edit_Vermifugado;
@@ -779,7 +834,7 @@ render_all_adotado(1)
             const imgInp = document.getElementById('imgInp').value
             const Edit_Desc = document.getElementById('Edit_Desc').value
 
-            let filename = imgInp.split("\\").pop(); 
+            let filename = imgInp.split("\\").pop();
             
             filename = new Date().toISOString().replace(/:/g, '-') + filename
             

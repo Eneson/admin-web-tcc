@@ -3,15 +3,17 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>AdminLTE v4 | Dashboard</title><!--begin::Primary Meta Tags-->
+    <title>Adote Admin Page</title><!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="AdminLTE v4 | Dashboard"><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <meta name="title"><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="../../config/api.js"></script>    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">    
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css"> -->
     <link rel="stylesheet" href="../../css/adminlte.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css">
 </head>
@@ -28,7 +30,7 @@
             <div class="container-fluid"> <!--begin::Start Navbar Links-->
                 <ul style="align-items: center;" class="navbar-nav ms-auto"> <!--begin::Navbar Search-->
                     <li class="nav-item" style="margin-right: 10px;">                        
-                        <span id="Nav_nome">NOME DO USUARIOS</span>                                                
+                        <nav id="Nav_nome">NOME DO USUARIOS</nav>                                                
                     </li>
                     <li class="nav-item">
                         <a onclick="Logout()" href="#" class="btn btn-secondary btn-flat float-end">Sair</a>
@@ -50,52 +52,53 @@
             <div class="app-content"> <!--begin::Container-->
                     <div class="container-fluid"> <!--begin::Row-->
                         <div class="row"> <!--begin::Col-->
-                            <div class="col-lg-3 col-6"> <!--begin::Usuários Box-->
+                            <div class="col-lg-3"> <!--begin::Usuários Box-->
                                 <div class="small-box text-bg-primary">
                                     <div class="inner">
                                         <h3 id="count_users">0</h3>
                                         <p>Usuários</p>
-                                    </div> <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                        <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"></path>
-                                    </svg> <a href="#" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
-                                        Mais informações <i class="bi bi-link-45deg"></i> </a>
+                                    </div>
+                                    <!-- Ícone de usuário do Bootstrap Icons -->
+                                    <i class="bi bi-person-fill small-box-icon"></i>
+                                    <div style="padding: 15px 0;" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"></div>
                                 </div> <!--end::Usuários Box-->
                             </div> <!--end::Col-->
-                            <div class="col-lg-3 col-6"> <!--begin::Pets cadastrados Box-->
-                            <div class="small-box text-bg-success">
-                                <div class="inner">
-                                    <h3 id="count_pets">0</h3>
-                                    <p>Pets cadastrados</p>
-                                </div> <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                    <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"></path>
-                                </svg> <a href="#" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
-                                    Mais informações <i class="bi bi-link-45deg"></i> </a>
-                            </div> <!--end::Pets cadastrados Box-->
-                            </div> <!--end::Col-->                        
-                            <div class="col-lg-3 col-6"> <!--begin::Adotados Box -->
-                                <div class="small-box text-bg-primary">
+                        
+                            <div class="col-lg-3"> <!--begin::Pets cadastrados Box-->
+                                <div class="small-box text-bg-success">
+                                    <div class="inner">
+                                        <h3 id="count_pets">0</h3>
+                                        <p>Pets cadastrados</p>
+                                    </div>
+                                    <!-- Ícone de collection -->
+                                    <i class="fas fa-paw small-box-icon"></i>
+                                    <div style="padding: 15px 0;" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"></div>
+                                </div> <!--end::Pets cadastrados Box--> 
+                            </div> <!--end::Col-->
+                        
+                            <div class="col-lg-3"> <!--begin::Adotados Box -->
+                                <div class="small-box text-bg-info">
                                     <div class="inner">
                                         <h3 id="count_adotado">0</h3>
                                         <p>Pets adotados</p>
-                                    </div> <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z"></path>
-                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z"></path>
-                                    </svg> <a href="#" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
-                                        Mais informações <i class="bi bi-link-45deg"></i> </a>
-                                </div> <!--end::Denúncias Box-->
-                            </div>                                                    
-                            <div class="col-lg-3 col-6"> <!--begin::Denúncias Box -->
-                                <div class="small-box text-bg-danger">
+                                    </div>
+                                    <!-- Ícone de coração -->
+                                    <i class="fas fa-heart small-box-icon"></i>
+                                    <div style="padding: 15px 0;" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"></div>
+                                </div> <!--end::Adotados Box-->
+                            </div> <!--end::Col-->
+                            
+                            <div class="col-lg-3"> <!--begin::Denúncias Box -->
+                                <div class="small-box text-bg-warning">
                                     <div class="inner">
-                                        <h3 id="count_reports">0</h3>
-                                        <p>Denúncias</p>
-                                    </div> <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z"></path>
-                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z"></path>
-                                    </svg> <a href="#" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
-                                        Mais informações <i class="bi bi-link-45deg"></i> </a>
+                                        <h3 id="count_denuncias">0</h3>
+                                        <p>Denúncias registradas</p>
+                                    </div>
+                                    <!-- Ícone de alerta ou exclamação -->
+                                    <i class="fas fa-exclamation-triangle small-box-icon"></i>
+                                    <div style="padding: 15px 0;" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"></div>
                                 </div> <!--end::Denúncias Box-->
-                            </div>
+                            </div> <!--end::Col-->
                         </div>
                         <!-- SEÇÃO DE USUARIOS -->
                          <div class="row">
@@ -488,67 +491,132 @@
                                             <div class="card-primary"> <!--begin::Header-->   
                                                 <div class="card-body">                                             
                                                     <div class="card card-outline"> <!--begin::Header-->
-                                                        <div class="modal-header">
+                                                        <div class="modal-header" style=" padding-bottom: 0px;">
                                                             <div style="width: 100%; display: flex; justify-content: space-between;">
-                                                                <h1 id="petIdModal" class="modal-title fs-5">Id do pet</h1>
-                                                                <h1 id="petNomeModal" class="modal-title fs-5">Nome do pet</h1>
-                                                                <h1 id="petTipoModal" style="margin-right: 20px;" class="modal-title fs-5">Tipo do pet</h1>
+                                                                <div class="d-flex justify-content-between align-items-center border-bottom-0" style="background-color: #fff;">                                                                    
+                                                                    <div class="d-flex flex-column align-items-start mb-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <h4 class="mb-1 text-primary font-weight-bold" id="petIdModal">331</h4>
+                                                                            <h4 class="mb-1 text-primary font-weight-bold"> - </h4>
+                                                                            <h4 class="mb-1 text-primary font-weight-bold" id="petNomeModal">Bartolomeu Junior </h4>
+                                                                        </div>
+                                                                        <p class="text-muted mb-0" id="petTipoModal">Gato</p>
+                                                                    </div>                                                                    
+                                                                </div>                                                                
                                                             </div>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div> <!--end::Header--> <!--begin::Form-->
-                                                            <div class="card" style="border-radius: 0px;">
-                                                                <div class="row" style="align-self: center; margin-top: 10px;">
-                                                                    <div class="col-12" style="display: flex;">
-                                                                        <h1 style="margin-right: 5px;" class="modal-title fs-5">Dono:</h1>        
-                                                                        <h1 id="petDonoModal" class="modal-title fs-5">Nome do Dono</h1>                                                                      
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
+                                                            
+                                                            <div class="card" style="border-radius: 0px;margin-top: 0px;padding-top: 10px;border-top-width: 0px;border-right-width: 0px;border-bottom-width: 0px;border-left-width: 0px;">
+                                                                
+                                                                <!-- <div class="row">
                                                                     <div style="text-align: center;margin-top: 20px;margin-bottom: 20px;">
                                                                         <img style="max-width: 250px; width: auto; height: auto;" height="300" id="petImgModal" src="#" class="card-img-top" alt="...">
                                                                     </div>
+                                                                </div> -->
+                                                                <div id="carouselPetImages" class="carousel slide" data-bs-ride="carousel">
+                                                                    <div class="carousel-inner" id="petImgContainer"></div>
+                                                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselPetImages" data-bs-slide="prev">
+                                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                        <span class="visually-hidden">Previous</span>
+                                                                    </button>
+                                                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselPetImages" data-bs-slide="next">
+                                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                        <span class="visually-hidden">Next</span>
+                                                                    </button>
                                                                 </div>
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="card-body">
-                                                                            <div class="row">
-                                                                                <div style="justify-content: space-between; display: flex;" class="col-12">
-                                                                                    <div style="display: flex;" >
-                                                                                        <h5 style="margin-right: 5px;" class="card-title">Data de Nascimento:</h5><br>
-                                                                                        <p id="petNascModal" class="card-text">17/09/2024</p>
+                                                                
+                                                                <div class="row justify-content-center">
+                                                                    <div class="col-12 col-md-10">
+                                                                        <div class="card-body" style="padding-top: 1rem; padding-bottom: 0px;padding-right: 0px;padding-left: 0px;">                                                                
+                                                                            <!-- Informações Básicas -->
+                                                                            <div class="row mb-4">
+                                                                                <div class="col-md-12 d-flex justify-content-center">
+                                                                                        <div class="d-flex flex-column">
+                                                                                            <h6 class="text-muted mb-1">Nome do Dono:</h6>
+                                                                                            <p class="font-weight-medium mb-0" id="petDonoModal">Enerson Macedo</p>
+                                                                                        </div>
+                                                                                        <!-- Outras informações aqui -->
+                                                                                </div>
+                                                                                <div class="modal-header" style="border-bottom-width: 0px;">
+                                                                                    <div style="display: flex; justify-content: space-between;">
+                                                                                        <div class="d-flex justify-content-between align-items-center">
+                                                                                                <div class="d-flex align-items-center">
+                                                                                                    <h5 class="mb-1 text-primary font-weight-bold">Informações do pet:</h4>
+                                                                                                </div>                                                                 
+                                                                                        </div>                                                                
                                                                                     </div>
-                                                                                    <div style="margin-right: 30px;">
-                                                                                        <p id="petSexoModal" class="card-text">Macho</p>
+                                                                                </div>
+                                                                                <!-- Alinhar as colunas -->
+                                                                                <div class="col-md-6 d-flex justify-content-center">
+                                                                                    <div class="d-flex flex-column">
+                                                                                        <h6 class="text-muted mb-1">Data de Nascimento:</h6>
+                                                                                        <div class="d-flex align-items-center">
+                                                                                            <i class="fas fa-calendar-alt text-primary me-2"></i>
+                                                                                            <p id="petNascModal" class="font-weight-medium mb-0">14/08/2024</p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6 d-flex justify-content-center">
+                                                                                    <div class="d-flex flex-column">
+                                                                                        <h6 class="text-muted mb-1">Sexo:</h6>
+                                                                                        <div class="d-flex align-items-center">
+                                                                                            <i class="fas fa-genderless text-primary me-2"></i>
+                                                                                            <p id="petSexoModal" class="font-weight-medium mb-0">Fêmea</p>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div style="margin-top: 20px;" class="row">
-                                                                                <div style="justify-content: space-between; display: flex;" class="col-12">
-                                                                                    <div>
-                                                                                        <h5 style="text-align: center;" class="card-title">Vacinado</h5><br>
-                                                                                        <p id="petVacinadoModal" style="text-align: center;" class="card-text">SIM</p>
-                                                                                    </div>
-                                                                                    <div>
-                                                                                        <h5 style="text-align: center;" class="card-title">Castrado</h5><br>
-                                                                                        <p id="petCastradoModal" style="text-align: center;" class="card-text">NÃO</p>
-                                                                                    </div>
-                                                                                    <div >
-                                                                                        <h5 style="text-align: center;" class="card-title">Vermifugado</h5><br>
-                                                                                        <p id="petVermifugadoModal" style="text-align: center;" class="card-text">SIM</p>
+                                                                
+                                                                            <!-- Status do Pet -->
+                                                                            <div class="row mb-4">
+                                                                                <div class="col-md-4">
+                                                                                    <div class="d-flex flex-column align-items-center">
+                                                                                        <h6 class="text-muted mb-2">Vacinado</h6>
+                                                                                        <div class="d-flex align-items-center">
+                                                                                            <i class="fas fa-syringe text-success me-3"></i>
+                                                                                            <p id="petVacinadoModal" class="font-weight-medium mb-0">Sim</p>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>                                                                                
-                                                                            <div style="border-top: solid 1px #898b8d;margin-top: 20px;" class="row">
+                                                                                <div class="col-md-4">
+                                                                                    <div class="d-flex flex-column align-items-center">
+                                                                                        <h6 class="text-muted mb-2">Castrado</h6>
+                                                                                        <div class="d-flex align-items-center">
+                                                                                            <i class="fas fa-cut text-warning me-3"></i>
+                                                                                            <p id="petCastradoModal" class="font-weight-medium mb-0">Não</p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <div class="d-flex flex-column align-items-center">
+                                                                                        <h6 class="text-muted mb-2">Vermifugado</h6>
+                                                                                        <div class="d-flex align-items-center">
+                                                                                            <i class="fas fa-pills text-info me-3"></i>
+                                                                                            <p id="petVermifugadoModal" class="font-weight-medium mb-0">Sim</p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                
+                                                                            <!-- Descrição do Pet -->
+                                                                            <div class="row mb-4">
                                                                                 <div class="col-12">
-                                                                                    <div style="margin-top: 5px;">
-                                                                                        <h5 class="card-title">Mais informações</h5><br>
-                                                                                        <p id="petDescModal" style="text-align: justify;" class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos corporis labore animi exercitationem repellendus dolorum aut quo nemo eum provident dolore pariatur iure, ipsa accusamus enim error unde veritatis? Labore?</p>
+                                                                                    <div class="border-top pt-4">
+                                                                                        <div class="d-flex align-items-center mb-3">
+                                                                                            <h6 class="text-muted mb-0">Mais Informações</h6>
+                                                                                            <i class="fas fa-info-circle text-secondary ms-2"></i>
+                                                                                        </div>
+                                                                                        <p id="petDescModal" class="text-justify" style="font-size: 1rem; line-height: 1.6;">
+                                                                                            Testando. Este pet é muito ativo, gosta de brincar e interagir com outros animais. Ele é muito carinhoso e está pronto para encontrar um novo lar.
+                                                                                        </p>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            </div>
+                                                                
+                                                                        </div>
                                                                     </div>
-                                                                </div>                                                                        
+                                                                </div>                                                                     
                                                             </div> <!--end::Row-->                                                        
                                                     </div>
                                                 </div> <!--end::Body-->

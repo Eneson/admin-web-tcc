@@ -12,6 +12,7 @@ api.get('session', {
     .then((res) => {
         //Nav_nome
         if(res.data.admin == 1){
+            console.log(res.data)
             document.getElementById("Nav_nome").innerHTML = res.data.nome            
         }else{                    
             reject(new Error('Usuario não autorizado'))

@@ -12,6 +12,8 @@ function login(form_data){
                 headers: { 
                 'authorization': token
                 }}).then((res) => {
+                    console.log('res login.js')
+                    console.log(res)
                 if(res.data.admin == 1){
                     resolve({
                         'token': res.config.headers.authorization,
