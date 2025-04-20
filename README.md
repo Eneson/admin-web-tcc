@@ -1,5 +1,3 @@
-Ah, entendi! Isso acontece se você estiver visualizando fora do GitHub ou se o formato não estiver como markdown. Aqui vai o mesmo texto formatado corretamente em Markdown para colar direto no README.md do GitHub:
-
 # Página do Administrador - Sistema ADOTE
 
 Este repositório contém a **página do administrador** do sistema **ADOTE**, desenvolvido como parte do Trabalho de Conclusão de Curso (TCC) do curso de **Tecnologia em Análise e Desenvolvimento de Sistemas** do **Instituto Federal do Pará (IFPA) – Campus Itaituba**.
@@ -29,8 +27,4 @@ O **ADOTE** é um sistema voltado para a **adoção responsável de animais**, c
 **Curso:** Tecnologia em Análise e Desenvolvimento de Sistemas  
 **Ano:** 2025  
 **Cidade:** Itaituba/PA
-
-É só copiar e colar esse conteúdo no seu arquivo README.md. No GitHub, a formatação com negrito e marcadores vai funcionar direitinho.
-
-Se quiser que eu gere esse arquivo .md pra você ou adicione mais seções (como instruções de instalação, execução, etc.), é só falar!
 
